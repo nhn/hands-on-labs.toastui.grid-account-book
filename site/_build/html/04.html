@@ -81,11 +81,10 @@
 <li class="toctree-l1"><a class="reference internal" href="03.html">3. 가계부 레이아웃 만들기</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">4. 다양한 입력 모드 활성화하기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05.html">5. 지출 비용 서식 변경하기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06.html">6. 지출 항목별 총합 출력하기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07.html">7. 지출 날짜 선택하기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08.html">8. 지출 정보 행 삭제 및 삭제하기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="09.html">9. 클립보드 복사 데이터 가공하기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wrap-up.html">10. 정리</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06.html">6. 행 추가, 삭제 기능 만들기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07.html">7. 서버 연동하기 (기본)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08.html">8. 서버 연동 - 데이터 수정, 삭제</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wrap-up.html">9. 정리</a></li>
 </ul>
 
             
@@ -150,6 +149,77 @@
             
   <div class="section" id="id1">
 <h1>4. 다양한 입력 모드 활성화하기<a class="headerlink" href="#id1" title="제목 주소">¶</a></h1>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">rowData</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nx">date</span><span class="o">:</span> <span class="s1">&#39;2018-09-01&#39;</span><span class="p">,</span>
+    <span class="nx">category1</span><span class="o">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+    <span class="nx">category2</span><span class="o">:</span> <span class="s1">&#39;회사 편의점&#39;</span><span class="p">,</span>
+    <span class="nx">payment</span><span class="o">:</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span>
+    <span class="nx">amount</span><span class="o">:</span> <span class="s1">&#39;5000&#39;</span>
+  <span class="p">}</span>
+<span class="p">];</span>
+
+<span class="kd">var</span> <span class="nx">columnData</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;날짜&#39;</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span>
+    <span class="nx">editOptions</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;text&#39;</span>
+    <span class="p">},</span>
+    <span class="nx">component</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;datePicker&#39;</span><span class="p">,</span>
+      <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">date</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+        <span class="nx">format</span><span class="o">:</span> <span class="s1">&#39;yyyy-MM-dd&#39;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;내역&#39;</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;category1&#39;</span><span class="p">,</span>
+    <span class="nx">editOptions</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;select&#39;</span><span class="p">,</span>
+      <span class="nx">listItems</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span> <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;선택 안함&#39;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;0&#39;</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;식비&#39;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;1&#39;</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;문화 생활비&#39;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;2&#39;</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;교통비&#39;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;3&#39;</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;관리비&#39;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;4&#39;</span> <span class="p">},</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;비고&#39;</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;category2&#39;</span><span class="p">,</span>
+    <span class="nx">editOptions</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;text&#39;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;결제 방식&#39;</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;payment&#39;</span><span class="p">,</span>
+    <span class="nx">editOptions</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;checkbox&#39;</span><span class="p">,</span>
+      <span class="nx">listItems</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span> <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;현금&#39;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;1&#39;</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;체크카드&#39;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;2&#39;</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;신용카드&#39;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;3&#39;</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;페이코&#39;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;4&#39;</span> <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;금액&#39;</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;amount&#39;</span><span class="p">,</span>
+    <span class="nx">editOptions</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;text&#39;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">];</span>
+
+<span class="p">...</span>
+</pre></div>
+</div>
 </div>
 
 

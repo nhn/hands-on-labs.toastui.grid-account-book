@@ -1,3 +1,34 @@
 ###################
 지출 비용 서식 변경하기
 ###################
+
+기본 레이아웃에 부가 정보들을 출력해줄 수 있도록 옵션을 추가해봅니다. 다음 요소들을 추가해봅니다. 그리드에서의 명칭 및 역할은 다음과 같습니다.
+
+* 메타 컬럼 : 각 행의 맨 앞에 위치하는 컬럼으로 체크박스, 라디오 버튼, 행 번호 등 실제 데이터와 관계 없는 요소들을 출력합니다.
+* 서머리 영역 : 그리드 테이블에서 푸터(footer)에 위치하는 영역이며, 전체 행에 대한 연산(총 합, 최대 값, 최소 값, 평균 등) 결과를 출력합니다.
+
+.. code-block:: javascript
+
+    ...
+
+    var grid = new tui.Grid({
+      el: $('#grid'),
+      data: rowData,
+      columns: columnData,
+      rowHeaders: [ // 메타 컬럼 추가
+        'checkbox',
+        'rowNum'
+      ],
+      summary: { // 서머리 영역 추가
+        height: 40,
+        position: 'bottom',
+        columnContent: {
+          amount: {
+            template: function(valueMap) {
+                return '합계 : ' + valueMap.sum;
+            }
+          }
+        }
+      }
+    });
+    ```

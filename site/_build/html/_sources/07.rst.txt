@@ -1,3 +1,83 @@
 ###################
-지출 날짜 선택하기
+서버 연동하기 (기본)
 ###################
+
+
+지금까지 로컬 데이터를 가져와 그리드를 생성하고 사용해 보았습니다. 서버 연동 과정을 직접 구현할 수도 있지만 그리드에서 제공하는 모듈을 사용해 좀 더 편리하게 서버 연동을 처리할 수 있습니다.
+
+Net 활성화
+==========================
+
+Net은 그리드에서 서버와 연동하여 데이터를 처리할 수 있도록 도와주는 모듈입니다. `use` API를 사용하여 해당 모듈을 활성화하며, CRUD 동작을 처리하기 위해 옵션들을 설정할 수 있습니다. (참고 : https://github.com/nhnent/tui.grid/blob/master/docs/binding-to-remote-data.md)
+
+먼저, Net을 활성화하고 데이터를 읽어오는 동작(read)을 구현해봅니다.
+
+.. code-block:: javascript
+
+    grid.use('Net', {
+        api: { // 호출할 서버 API의 url을 설정합니다.
+            readData: 'api/readData'
+        },
+        readDataMethod: 'GET' // API 호출에 대해 get 또는 post 방식을 사용할지 결정합니다.
+    });
+
+
+서버 데이터 만들기
+==========================
+
+mock.js 파일을 열고 다음 내용들을 확인합니다. 아래 코드는 서버 연동을 테스트하기 위핸 API 목킹 스크립트입니다. `response` 함수에서 API 응답 데이터를 만들어서 설정해주면 서버 연동 테스트를 할 수 있습니다.
+
+.. code-block:: javascript
+
+    $.mockjax({
+        url: 'api/readData',
+        responseTime: 0,
+        response: function() {
+
+        }
+    });
+
+    ...
+
+
+`url: 'api/readData'` 옵션을 가지는 `mockjax` 함수에 서버 응답 데이터를 생성해봅니다.
+
+.. code-block:: javascript
+
+  $.mockjax({
+      url: 'api/readData',
+      responseTime: 0,
+      response: function(settings) {
+        var responseData = {
+          result: true,
+          data: {
+            contents: [ // 그리드 데이터 설정 시 사용되는 data 값에 해당됩니다.
+              {
+               date: '2018-09-01',
+               amount: '5000',
+               category1: '식비',
+               category2: '회사 편의점',
+               payment: '페이코'
+              }
+            ]
+          }
+        };
+
+        this.responseText = JSON.stringify(responseData);
+      }
+  });
+
+
+이제 서버에서 데이터를 가져오므로 grid.js에서 그리드 생성 시 사용된 로컬 데이터(`data`)를 제거합니다.
+
+.. code-block:: javascript
+
+    var rowData = [ ... ]; // 제거
+
+    var grid = new tui.Grid({
+      el: $('#grid'),
+      data: rowData, // 제거
+      ...
+    });
+
+데이터를 2~3개 정도 더 추가해 보고 정상적으로 출력되는지 확인해봅니다.

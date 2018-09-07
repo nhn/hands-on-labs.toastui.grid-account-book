@@ -1,3 +1,48 @@
-###################
-지출 항목별 총합 출력하기
-###################
+######################
+행 추가, 삭제 기능 만들기
+######################
+
+
+지금까지 데이터를 출력하고 수정하는 작업을 처리해보았습니다. 행을 추가하고 삭제하는 기능을 추가해봅니다.
+
+버튼 요소 추가
+=======================
+
+클릭 이벤트가 발생하면 그리드 API를 호출할 수 있도록 버튼 엘리먼트를 추가해봅니다.
+
+.. code-block:: html
+
+    <button id="add" onclick="addRow()">추가</button>
+    <button id="remove" onclick="removeRow()">삭제</button>
+
+
+그리드 API 호출하기
+=======================
+
+클릭 이벤트 시 추가, 삭제에 대한 함수를 추가합니다. 각 함수에서는 동작에 따라 그리드 API를 호출하여 행이 추가되거나 삭제될 수 있도록 처리해봅니다.
+
+.. code-block:: javascript
+
+    // 행 추가
+    function addRow() {
+      grid.appendRow([
+        {
+          date: '',
+          category1: '',
+          category2: '',
+          payment: '',
+          amount: ''
+        }
+      ]);
+    }
+
+    // 체크된 행 삭제
+    function removeRow() {
+      var rowKeys = grid.getCheckedRowKeys();
+      var i = 0;
+      var len = rowKeys.length;
+
+      for (; i < len; i += 1) {
+        grid.removeRow(rowKeys[i]);
+      }
+    }

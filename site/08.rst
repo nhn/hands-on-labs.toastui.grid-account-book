@@ -1,3 +1,87 @@
 ######################
-지출 정보 행 삭제 및 삭제하기
+서버 연동 - 데이터 수정, 삭제
 ######################
+
+
+
+앞서 만들어 본 데이터 추가 예제와 동일하게 수정, 삭제 동작에 대해서도 서버 연동을 처리해봅니다.
+
+Net 활성화
+===========
+
+
+.. code-block:: javascript
+
+    // grid.js
+
+    grid.use('Net', {
+      ...
+      api: {
+        ...
+        updateData: 'api/updateData',
+        deleteData: 'api/deleteData'
+      }
+    });
+
+.. code-block:: javascript
+
+    // grid.js
+
+    function removeRow() {
+      ...
+
+      net = grid.getAddOn('Net');
+      net.request('deleteData');
+    }
+
+
+
+서버 데이터 만들기
+=================
+
+
+.. code-block:: javascript
+
+    // mock.js
+
+    $.mockjax({
+        url: 'api/updateData',
+        responseTime: 0,
+        response: function() {
+          var responseData = {
+            "result": true,
+            "data": {},
+            "modified": "update",
+          };
+
+          this.responseText = JSON.stringify(responseData);
+        }
+    });
+
+    $.mockjax({
+        url: 'api/deleteData',
+        responseTime: 0,
+        response: function() {
+          var responseData = {
+            "result": true,
+            "data": {},
+            "modified": "delete",
+          };
+
+          this.responseText = JSON.stringify(responseData);
+        }
+    });
+
+
+응답 결과 수정하기
+===============
+
+.. code-block:: javascript
+
+    grid.on('response', function(response) {
+      const data = response.responseData;
+
+      if (data.result && data.modified) {
+        alert(data.modified + '되었습니다.');
+      }
+    });

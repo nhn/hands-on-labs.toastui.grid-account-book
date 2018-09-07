@@ -1,3 +1,76 @@
 ####################
 다양한 입력 모드 활성화하기
 ####################
+
+
+.. code-block:: javascript
+
+    var rowData = [
+      {
+        date: '2018-09-01',
+        category1: '1',
+        category2: '회사 편의점',
+        payment: '4',
+        amount: '5000'
+      }
+    ];
+
+    var columnData = [
+      {
+        title: '날짜',
+        name: 'date',
+        editOptions: {
+          type: 'text'
+        },
+        component: {
+          name: 'datePicker',
+          options: {
+            date: new Date(2017, 3, 10),
+            format: 'yyyy-MM-dd'
+          }
+        }
+      },
+      {
+        title: '내역',
+        name: 'category1',
+        editOptions: {
+          type: 'select',
+          listItems: [
+            { text: '선택 안함', value: '0' },
+            { text: '식비', value: '1' },
+            { text: '문화 생활비', value: '2' },
+            { text: '교통비', value: '3' },
+            { text: '관리비', value: '4' },
+          ]
+        }
+      },
+      {
+        title: '비고',
+        name: 'category2',
+        editOptions: {
+          type: 'text'
+        }
+      },
+      {
+        title: '결제 방식',
+        name: 'payment',
+        editOptions: {
+          type: 'checkbox',
+          listItems: [
+            { text: '현금', value: '1' },
+            { text: '체크카드', value: '2' },
+            { text: '신용카드', value: '3' },
+            { text: '페이코', value: '4' }
+          ]
+        }
+      },
+      {
+        title: '금액',
+        name: 'amount',
+        editOptions: {
+          type: 'text'
+        }
+      }
+    ];
+
+    ...

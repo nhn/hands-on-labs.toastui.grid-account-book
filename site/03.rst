@@ -1,3 +1,62 @@
 ###################
 가계부 레이아웃 만들기
 ###################
+
+
+컬럼 설정
+=======================
+
+.. code-block:: javascript
+
+    var columnData = [
+      {
+        title: '날짜',
+        name: 'date'
+      },
+      {
+        title: '금액',
+        name: 'amount'
+      },
+      {
+        title: '내역',
+        name: 'category1'
+      },
+      {
+        title: '비고',
+        name: 'category2'
+      },
+      {
+        title: '결제 방식',
+        name: 'payment'
+      }
+    ];
+
+    var grid = new tui.Grid({
+        el: $('#grid'),
+        data: [],
+        columns: columnData
+    });
+
+
+기본 데이터 설정
+=======================
+
+.. code-block:: javascript
+
+    ...
+
+    var rowData = [
+      {
+        date: '2018-09-01',
+        amount: '5000',
+        category1: '식비',
+        category2: '회사 편의점',
+        payment: '페이코'
+      }
+    ];
+
+    var grid = new tui.Grid({
+        el: $('#grid'),
+        data: rowData,
+        columns: columnData
+    });

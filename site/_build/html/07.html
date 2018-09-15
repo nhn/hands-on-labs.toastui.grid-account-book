@@ -79,11 +79,11 @@
 <li class="toctree-l1"><a class="reference internal" href="01.html">1. 개요</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02.html">2. 그리드 맛보기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03.html">3. 가계부 레이아웃 만들기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04.html">4. 다양한 입력 모드 활성화하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04.html">4. 다양한 편집 모드 활성화하기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05.html">5. 지출 비용 서식 변경하기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06.html">6. 행 추가, 삭제 기능 만들기</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">7. 서버 연동하기 (기본)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#net">7.1. Net 활성화</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#net">7.1. Net 활성화하기</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id2">7.2. 서버 데이터 만들기</a></li>
 </ul>
 </li>
@@ -153,10 +153,15 @@
             
   <div class="section" id="id1">
 <h1>7. 서버 연동하기 (기본)<a class="headerlink" href="#id1" title="제목 주소">¶</a></h1>
-<p>지금까지 로컬 데이터를 가져와 그리드를 생성하고 사용해 보았습니다. 서버 연동 과정을 직접 구현할 수도 있지만 그리드에서 제공하는 모듈을 사용해 좀 더 편리하게 서버 연동을 처리할 수 있습니다.</p>
+<p>지금까지 로컬 데이터를 가져와 그리드를 생성하고 사용해 보았습니다.
+서버 연동 과정을 직접 구현할 수도 있지만 그리드에서 제공하는 모듈을 사용해 좀 더 편리하게 서버 연동을 처리할 수 있습니다.</p>
 <div class="section" id="net">
-<h2>7.1. Net 활성화<a class="headerlink" href="#net" title="제목 주소">¶</a></h2>
-<p>Net은 그리드에서 서버와 연동하여 데이터를 처리할 수 있도록 도와주는 모듈입니다. <cite>use</cite> API를 사용하여 해당 모듈을 활성화하며, CRUD 동작을 처리하기 위해 옵션들을 설정할 수 있습니다. (참고 : <a class="reference external" href="https://github.com/nhnent/tui.grid/blob/master/docs/binding-to-remote-data.md">https://github.com/nhnent/tui.grid/blob/master/docs/binding-to-remote-data.md</a>)</p>
+<h2>7.1. Net 활성화하기<a class="headerlink" href="#net" title="제목 주소">¶</a></h2>
+<p>Net은 그리드에서 서버와 연동하여 데이터를 처리할 수 있도록 도와주는 모듈입니다.
+<code class="docutils literal notranslate"><span class="pre">use</span></code> API를 사용하여 해당 모듈을 활성화하며, CRUD 동작을 처리하기 위해 옵션들을 설정할 수 있습니다.</p>
+<ul class="simple">
+<li>참고 : <a class="reference external" href="https://github.com/nhnent/tui.grid/blob/master/docs/binding-to-remote-data.md">https://github.com/nhnent/tui.grid/blob/master/docs/binding-to-remote-data.md</a></li>
+</ul>
 <p>먼저, Net을 활성화하고 데이터를 읽어오는 동작(read)을 구현해봅니다.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">grid</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;Net&#39;</span><span class="p">,</span> <span class="p">{</span>
     <span class="nx">api</span><span class="o">:</span> <span class="p">{</span> <span class="c1">// 호출할 서버 API의 url을 설정합니다.</span>
@@ -169,7 +174,7 @@
 </div>
 <div class="section" id="id2">
 <h2>7.2. 서버 데이터 만들기<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
-<p>mock.js 파일을 열고 다음 내용들을 확인합니다. 아래 코드는 서버 연동을 테스트하기 위핸 API 목킹 스크립트입니다. <cite>response</cite> 함수에서 API 응답 데이터를 만들어서 설정해주면 서버 연동 테스트를 할 수 있습니다.</p>
+<p>mock.js 파일을 열고 다음 내용들을 확인합니다. 아래 코드는 서버 연동을 테스트하기 위핸 API 목킹 스크립트입니다. <code class="docutils literal notranslate"><span class="pre">response</span></code> 함수에서 API 응답 데이터를 만들어서 설정해주면 서버 연동 테스트를 할 수 있습니다.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">$</span><span class="p">.</span><span class="nx">mockjax</span><span class="p">({</span>
     <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;api/readData&#39;</span><span class="p">,</span>
     <span class="nx">responseTime</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -181,7 +186,7 @@
 <span class="p">...</span>
 </pre></div>
 </div>
-<p><cite>url: 'api/readData'</cite> 옵션을 가지는 <cite>mockjax</cite> 함수에 서버 응답 데이터를 생성해봅니다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">url:</span> <span class="pre">'api/readData'`</span></code> 옵션을 가지는 <code class="docutils literal notranslate"><span class="pre">mockjax</span></code> 함수에 서버 응답 데이터를 생성해봅니다.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">$</span><span class="p">.</span><span class="nx">mockjax</span><span class="p">({</span>
     <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;api/readData&#39;</span><span class="p">,</span>
     <span class="nx">responseTime</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -206,7 +211,7 @@
 <span class="p">});</span>
 </pre></div>
 </div>
-<p>이제 서버에서 데이터를 가져오므로 grid.js에서 그리드 생성 시 사용된 로컬 데이터(<cite>data</cite>)를 제거합니다.</p>
+<p>이제 서버에서 데이터를 가져오므로 grid.js에서 그리드 생성 시 사용된 로컬 데이터(<code class="docutils literal notranslate"><span class="pre">data</span></code>)를 제거합니다.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">rowData</span> <span class="o">=</span> <span class="p">[</span> <span class="p">...</span> <span class="p">];</span> <span class="c1">// 제거</span>
 
 <span class="kd">var</span> <span class="nx">grid</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">tui</span><span class="p">.</span><span class="nx">Grid</span><span class="p">({</span>
@@ -216,7 +221,7 @@
 <span class="p">});</span>
 </pre></div>
 </div>
-<p>데이터를 2~3개 정도 더 추가해 보고 정상적으로 출력되는지 확인해봅니다.</p>
+<p>데이터를 2~3개 정도 더 추가해봅니다.</p>
 </div>
 </div>
 

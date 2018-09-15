@@ -79,19 +79,19 @@
 <li class="toctree-l1"><a class="reference internal" href="01.html">1. 개요</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">2. 그리드 맛보기</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#npm">2.1. npm으로 그리드 사용하기</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">2.2. 스크립트 추가</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#html-css">2.3. html, css 추가</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">2.4. 그리드 인스턴스 생성</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">2.2. 스크립트 추가하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#html-css">2.3. html, css 추가하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">2.4. 그리드 인스턴스 생성하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">2.5. 결과 화면</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="03.html">3. 가계부 레이아웃 만들기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04.html">4. 다양한 입력 모드 활성화하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04.html">4. 다양한 편집 모드 활성화하기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05.html">5. 지출 비용 서식 변경하기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06.html">6. 지출 항목별 총합 출력하기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07.html">7. 지출 날짜 선택하기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08.html">8. 지출 정보 행 삭제 및 삭제하기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="09.html">9. 클립보드 복사 데이터 가공하기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wrap-up.html">10. 정리</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06.html">6. 행 추가, 삭제 기능 만들기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07.html">7. 서버 연동하기 (기본)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08.html">8. 서버 연동 - 데이터 수정, 삭제</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wrap-up.html">9. 정리</a></li>
 </ul>
 
             
@@ -175,7 +175,7 @@
 </div>
 </div>
 <div class="section" id="id2">
-<h2>2.2. 스크립트 추가<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
+<h2>2.2. 스크립트 추가하기<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
 <p>모듈 포맷으로 그리드를 가져와 사용하는 방법을 익혀봅니다.</p>
 <ol class="arabic simple">
 <li>프로젝트의 <code class="docutils literal notranslate"><span class="pre">src/index.js</span></code> 파일을 열고 그리드를 추가해봅니다.</li>
@@ -193,7 +193,7 @@
 </div>
 </div>
 <div class="section" id="html-css">
-<h2>2.3. html, css 추가<a class="headerlink" href="#html-css" title="제목 주소">¶</a></h2>
+<h2>2.3. html, css 추가하기<a class="headerlink" href="#html-css" title="제목 주소">¶</a></h2>
 <p>그리드를 UI를 위한 html 및 css 파일을 추가해봅니다.</p>
 <ol class="arabic simple">
 <li>프로젝트의 <code class="docutils literal notranslate"><span class="pre">demo/index.html</span></code> 파일을 열고 태그(그리드 생성 컨테이너 엘리먼트)를 추가합니다.</li>
@@ -226,7 +226,7 @@
 </div>
 </div>
 <div class="section" id="id3">
-<h2>2.4. 그리드 인스턴스 생성<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
+<h2>2.4. 그리드 인스턴스 생성하기<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
 <p>그리드는 생성자 함수로 인스턴스를 생성하여 사용하고 관련 메서드들을 API로 사용할 수 있습니다.</p>
 <ol class="arabic simple">
 <li>인스턴스를 생성해봅니다. 이 때 반드시 필수 옵션을 파라미터로 넘겨주어야 합니다.</li>
@@ -297,10 +297,10 @@
 <span class="nx">instance</span><span class="p">.</span><span class="nx">appendRow</span><span class="p">(</span><span class="nx">rowData</span><span class="p">);</span>
 </pre></div>
 </div>
-<ol class="arabic simple" start="3">
-<li>다음과 같이 총 3개의 행을 가진 그리드가 생성되었는지 확인해봅니다.</li>
-</ol>
-<img alt="_images/img1.png" src="_images/img1.png" />
+</div>
+<div class="section" id="id4">
+<h2>2.5. 결과 화면<a class="headerlink" href="#id4" title="제목 주소">¶</a></h2>
+<img alt="_images/step02.png" src="_images/step02.png" />
 </div>
 </div>
 

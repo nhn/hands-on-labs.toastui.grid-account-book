@@ -1,14 +1,40 @@
-######################
+##############################
 서버 연동 - 데이터 수정, 삭제
-######################
-
-
+##############################
 
 앞서 만들어 본 데이터 추가 예제와 동일하게 수정, 삭제 동작에 대해서도 서버 연동을 처리해봅니다.
 
-Net 활성화
-===========
 
+옵션 추가하기
+==============================
+
+행 추가, 삭제 기능은 버튼을 통해 서버와 연동하나, 수정 기능은 서버와 연동할 방법이 없습니다.
+데이터가 수정된 경우를 처리하기 위해 다음과 같이 ``onAfterChange`` 옵션을 추가합니다.
+``onAfterChange`` 옵션은 데이터가 변경되었을 때 발생하는 콜백 함수이며 각 컬럼마다 설정을 다르게 할 수 있습니다.
+
+아래는 '내역' 컬럼에 추가한 예제이며, 다른 컬럼에도 옵션을 적용해봅니다.
+
+.. code-block:: javascript
+
+    ...
+    var columnData = [
+      ...
+      {
+        title: '내역',
+        name: 'category1',
+        ...
+        onAfterChange: function() {
+          net = grid.getAddOn('Net');
+          net.request('updateData');
+        }
+      },
+      ...
+
+
+Net 활성화하기
+==============================
+
+이번 단계부터는 앞 챕터에서 실습한 내용과 동일합니다.
 
 .. code-block:: javascript
 
@@ -18,8 +44,8 @@ Net 활성화
       ...
       api: {
         ...
-        updateData: 'api/updateData',
-        deleteData: 'api/deleteData'
+        updateData: 'api/updateData', // 수정
+        deleteData: 'api/deleteData' // 삭제
       }
     });
 
@@ -35,16 +61,14 @@ Net 활성화
     }
 
 
-
 서버 데이터 만들기
-=================
-
+==============================
 
 .. code-block:: javascript
 
     // mock.js
 
-    $.mockjax({
+    $.mockjax({ // 수정 응답 데이터
         url: 'api/updateData',
         responseTime: 0,
         response: function() {
@@ -58,7 +82,7 @@ Net 활성화
         }
     });
 
-    $.mockjax({
+    $.mockjax({ // 삭제 응답 데이터
         url: 'api/deleteData',
         responseTime: 0,
         response: function() {
@@ -74,7 +98,7 @@ Net 활성화
 
 
 응답 결과 수정하기
-===============
+==============================
 
 .. code-block:: javascript
 
@@ -82,6 +106,13 @@ Net 활성화
       const data = response.responseData;
 
       if (data.result && data.modified) {
-        alert(data.modified + '되었습니다.');
+        alert(data.modified + ' 되었습니다.');
       }
     });
+
+
+결과 화면
+==============================
+
+.. image:: _static/step08-1.png
+.. image:: _static/step08-2.png

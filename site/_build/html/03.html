@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="색인" href="genindex.html" />
     <link rel="search" title="검색" href="search.html" />
-    <link rel="next" title="4. 다양한 입력 모드 활성화하기" href="04.html" />
+    <link rel="next" title="4. 다양한 편집 모드 활성화하기" href="04.html" />
     <link rel="prev" title="2. 그리드 맛보기" href="02.html" /> 
 
   
@@ -79,11 +79,12 @@
 <li class="toctree-l1"><a class="reference internal" href="01.html">1. 개요</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02.html">2. 그리드 맛보기</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">3. 가계부 레이아웃 만들기</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id2">3.1. 컬럼 설정</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">3.2. 기본 데이터 설정</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">3.1. 컬럼 설정하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">3.2. 기본 데이터 설정하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">3.3. 결과 화면</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="04.html">4. 다양한 입력 모드 활성화하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04.html">4. 다양한 편집 모드 활성화하기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05.html">5. 지출 비용 서식 변경하기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06.html">6. 행 추가, 삭제 기능 만들기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="07.html">7. 서버 연동하기 (기본)</a></li>
@@ -153,16 +154,14 @@
             
   <div class="section" id="id1">
 <h1>3. 가계부 레이아웃 만들기<a class="headerlink" href="#id1" title="제목 주소">¶</a></h1>
+<p>지금부터 간단한 가계부를 만들어보겠습니다.
+앞서 살펴보았던 기능들을 이용해 가계부의 기본 정보를 추가해 레이아웃을 만들어봅니다.</p>
 <div class="section" id="id2">
-<h2>3.1. 컬럼 설정<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
+<h2>3.1. 컬럼 설정하기<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">columnData</span> <span class="o">=</span> <span class="p">[</span>
   <span class="p">{</span>
     <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;날짜&#39;</span><span class="p">,</span>
     <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;date&#39;</span>
-  <span class="p">},</span>
-  <span class="p">{</span>
-    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;금액&#39;</span><span class="p">,</span>
-    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;amount&#39;</span>
   <span class="p">},</span>
   <span class="p">{</span>
     <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;내역&#39;</span><span class="p">,</span>
@@ -175,6 +174,10 @@
   <span class="p">{</span>
     <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;결제 방식&#39;</span><span class="p">,</span>
     <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;payment&#39;</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;금액&#39;</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;amount&#39;</span>
   <span class="p">}</span>
 <span class="p">];</span>
 
@@ -187,26 +190,30 @@
 </div>
 </div>
 <div class="section" id="id3">
-<h2>3.2. 기본 데이터 설정<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
+<h2>3.2. 기본 데이터 설정하기<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
 
 <span class="kd">var</span> <span class="nx">rowData</span> <span class="o">=</span> <span class="p">[</span>
   <span class="p">{</span>
     <span class="nx">date</span><span class="o">:</span> <span class="s1">&#39;2018-09-01&#39;</span><span class="p">,</span>
-    <span class="nx">amount</span><span class="o">:</span> <span class="s1">&#39;5000&#39;</span><span class="p">,</span>
     <span class="nx">category1</span><span class="o">:</span> <span class="s1">&#39;식비&#39;</span><span class="p">,</span>
     <span class="nx">category2</span><span class="o">:</span> <span class="s1">&#39;회사 편의점&#39;</span><span class="p">,</span>
-    <span class="nx">payment</span><span class="o">:</span> <span class="s1">&#39;페이코&#39;</span>
+    <span class="nx">payment</span><span class="o">:</span> <span class="s1">&#39;페이코&#39;</span><span class="p">,</span>
+    <span class="nx">amount</span><span class="o">:</span> <span class="s1">&#39;5000&#39;</span>
   <span class="p">}</span>
 <span class="p">];</span>
 
 <span class="kd">var</span> <span class="nx">grid</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">tui</span><span class="p">.</span><span class="nx">Grid</span><span class="p">({</span>
     <span class="nx">el</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#grid&#39;</span><span class="p">),</span>
-    <span class="nx">data</span><span class="o">:</span> <span class="nx">rowData</span><span class="p">,</span>
+    <span class="nx">data</span><span class="o">:</span> <span class="nx">rowData</span><span class="p">,</span> <span class="c1">// 변경</span>
     <span class="nx">columns</span><span class="o">:</span> <span class="nx">columnData</span>
 <span class="p">});</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="id4">
+<h2>3.3. 결과 화면<a class="headerlink" href="#id4" title="제목 주소">¶</a></h2>
+<img alt="_images/step03.png" src="_images/step03.png" />
 </div>
 </div>
 
@@ -218,7 +225,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="04.html" class="btn btn-neutral float-right" title="4. 다양한 입력 모드 활성화하기" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="04.html" class="btn btn-neutral float-right" title="4. 다양한 편집 모드 활성화하기" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="02.html" class="btn btn-neutral" title="2. 그리드 맛보기" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

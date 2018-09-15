@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4. 다양한 입력 모드 활성화하기 &mdash; Dooray! Messenger Incoming Hook Sample 1.0 documentation</title>
+  <title>4. 다양한 편집 모드 활성화하기 &mdash; Dooray! Messenger Incoming Hook Sample 1.0 documentation</title>
   
 
   
@@ -79,7 +79,13 @@
 <li class="toctree-l1"><a class="reference internal" href="01.html">1. 개요</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02.html">2. 그리드 맛보기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03.html">3. 가계부 레이아웃 만들기</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">4. 다양한 입력 모드 활성화하기</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4. 다양한 편집 모드 활성화하기</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">4.1. 옵션 설정하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">4.2. 셀렉트 박스, 체크박스 데이터 수정하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">4.3. 편집 모드 방식 변경하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">4.4. 결과 화면</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="05.html">5. 지출 비용 서식 변경하기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06.html">6. 행 추가, 삭제 기능 만들기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="07.html">7. 서버 연동하기 (기본)</a></li>
@@ -130,7 +136,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>4. 다양한 입력 모드 활성화하기</li>
+      <li>4. 다양한 편집 모드 활성화하기</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -148,7 +154,23 @@
            <div itemprop="articleBody">
             
   <div class="section" id="id1">
-<h1>4. 다양한 입력 모드 활성화하기<a class="headerlink" href="#id1" title="제목 주소">¶</a></h1>
+<h1>4. 다양한 편집 모드 활성화하기<a class="headerlink" href="#id1" title="제목 주소">¶</a></h1>
+<p>지금까지는 그리드에서 데이터를 출력하는 기능만 사용해보았습니다.
+가계부에서는 데이터를 수정할 수 있어햐하므로, 그리드에서 제공하는 <code class="docutils literal notranslate"><span class="pre">editOptions</span></code> 옵션을 사용해 다양한 편집 모드를 활성화 해봅니다.</p>
+<p>각 카테고리에서 필요로 하는 편집 모드는 다음과 같습니다.</p>
+<ul class="simple">
+<li>날짜 : 데이트 피커</li>
+<li>내역 : 셀렉트 박스</li>
+<li>비고 : 텍스트 인풋</li>
+<li>결제 방식 : 체크박스</li>
+<li>금액 : 텍스트 인풋</li>
+</ul>
+<p>이 외 다른 편집 모드를 추가하고 싶다면 아래 링크를 참고하여 추가합니다.</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/nhnent/tui.grid/blob/master/docs/input-types.md">https://github.com/nhnent/tui.grid/blob/master/docs/input-types.md</a></li>
+</ul>
+<div class="section" id="id2">
+<h2>4.1. 옵션 설정하기<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">rowData</span> <span class="o">=</span> <span class="p">[</span>
   <span class="p">{</span>
     <span class="nx">date</span><span class="o">:</span> <span class="s1">&#39;2018-09-01&#39;</span><span class="p">,</span>
@@ -169,7 +191,6 @@
     <span class="nx">component</span><span class="o">:</span> <span class="p">{</span>
       <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;datePicker&#39;</span><span class="p">,</span>
       <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">date</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
         <span class="nx">format</span><span class="o">:</span> <span class="s1">&#39;yyyy-MM-dd&#39;</span>
       <span class="p">}</span>
     <span class="p">}</span>
@@ -219,6 +240,54 @@
 
 <span class="p">...</span>
 </pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>4.2. 셀렉트 박스, 체크박스 데이터 수정하기<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
+<p>텍스트 인풋을 제외한 다른 편집 타입의 경우 데이터 형식을 변경해야 합니다.</p>
+<p>예를 들어 체크박스를 사용하는 컬럼 데이터는, <code class="docutils literal notranslate"><span class="pre">editOptions.listItems``에</span> <span class="pre">설정된</span> <span class="pre">각</span> <span class="pre">리스트의</span> <span class="pre">값(``value</span></code>) 중 하나와 일치해야 합니다.
+다음과 같이 변경해봅니다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
+<span class="kd">var</span> <span class="nx">rowData</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nx">date</span><span class="o">:</span> <span class="s1">&#39;2018-09-01&#39;</span><span class="p">,</span>
+    <span class="nx">category1</span><span class="o">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+    <span class="nx">category2</span><span class="o">:</span> <span class="s1">&#39;웨일즈마켓&#39;</span><span class="p">,</span>
+    <span class="nx">payment</span><span class="o">:</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span>
+    <span class="nx">amount</span><span class="o">:</span> <span class="s1">&#39;5000&#39;</span>
+  <span class="p">}</span>
+<span class="p">];</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>4.3. 편집 모드 방식 변경하기<a class="headerlink" href="#id4" title="제목 주소">¶</a></h2>
+<p>이렇게 편집 모드를 추가하고 데이터를 편집하기 위해서는 셀을 더블 클릭합니다.
+이것이 기본 동작이며, 처음부터 셀에 편집 모드를 노출하고 싶다면 다음과 같이 각 컬럼의 <code class="docutils literal notranslate"><span class="pre">editOptions</span></code> 마다 <code class="docutils literal notranslate"><span class="pre">useViewMode:</span> <span class="pre">false</span></code> 를 추가해주면 됩니다.
+각자 사용 용도에 맞게 수정해봅니다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
+<span class="p">{</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;내역&#39;</span><span class="p">,</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;category1&#39;</span><span class="p">,</span>
+  <span class="nx">editOptions</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;select&#39;</span><span class="p">,</span>
+    <span class="nx">listItems</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;선택 안함&#39;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;0&#39;</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;식비&#39;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;1&#39;</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;문화 생활비&#39;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;2&#39;</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;교통비&#39;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;3&#39;</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;관리비&#39;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;4&#39;</span> <span class="p">},</span>
+    <span class="p">],</span>
+    <span class="nx">useViewMode</span><span class="o">:</span> <span class="kc">false</span>
+  <span class="p">}</span>
+<span class="p">},</span>
+<span class="p">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>4.4. 결과 화면<a class="headerlink" href="#id5" title="제목 주소">¶</a></h2>
+<img alt="_images/step04.png" src="_images/step04.png" />
 </div>
 </div>
 

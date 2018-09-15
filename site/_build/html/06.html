@@ -79,11 +79,12 @@
 <li class="toctree-l1"><a class="reference internal" href="01.html">1. 개요</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02.html">2. 그리드 맛보기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03.html">3. 가계부 레이아웃 만들기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04.html">4. 다양한 입력 모드 활성화하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04.html">4. 다양한 편집 모드 활성화하기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05.html">5. 지출 비용 서식 변경하기</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">6. 행 추가, 삭제 기능 만들기</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id2">6.1. 버튼 요소 추가</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">6.1. 버튼 추가하기</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#api">6.2. 그리드 API 호출하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">6.3. 결과 화면</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="07.html">7. 서버 연동하기 (기본)</a></li>
@@ -153,9 +154,10 @@
             
   <div class="section" id="id1">
 <h1>6. 행 추가, 삭제 기능 만들기<a class="headerlink" href="#id1" title="제목 주소">¶</a></h1>
-<p>지금까지 데이터를 출력하고 수정하는 작업을 처리해보았습니다. 행을 추가하고 삭제하는 기능을 추가해봅니다.</p>
+<p>지금까지 데이터를 출력하고 수정하는 작업을 처리해보았습니다.
+행을 추가하고 삭제하는 기능을 추가해봅니다.</p>
 <div class="section" id="id2">
-<h2>6.1. 버튼 요소 추가<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
+<h2>6.1. 버튼 추가하기<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
 <p>클릭 이벤트가 발생하면 그리드 API를 호출할 수 있도록 버튼 엘리먼트를 추가해봅니다.</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">button</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;add&quot;</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&quot;addRow()&quot;</span><span class="p">&gt;</span>추가<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">button</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;remove&quot;</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&quot;removeRow()&quot;</span><span class="p">&gt;</span>삭제<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
@@ -164,7 +166,8 @@
 </div>
 <div class="section" id="api">
 <h2>6.2. 그리드 API 호출하기<a class="headerlink" href="#api" title="제목 주소">¶</a></h2>
-<p>클릭 이벤트 시 추가, 삭제에 대한 함수를 추가합니다. 각 함수에서는 동작에 따라 그리드 API를 호출하여 행이 추가되거나 삭제될 수 있도록 처리해봅니다.</p>
+<p>클릭 이벤트 시 추가, 삭제에 대한 함수를 추가합니다.
+각 함수에서는 동작에 따라 그리드 API를 호출하여 행이 추가되거나 삭제될 수 있도록 처리해봅니다.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// 행 추가</span>
 <span class="kd">function</span> <span class="nx">addRow</span><span class="p">()</span> <span class="p">{</span>
   <span class="nx">grid</span><span class="p">.</span><span class="nx">appendRow</span><span class="p">([</span>
@@ -181,15 +184,17 @@
 <span class="c1">// 체크된 행 삭제</span>
 <span class="kd">function</span> <span class="nx">removeRow</span><span class="p">()</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">rowKeys</span> <span class="o">=</span> <span class="nx">grid</span><span class="p">.</span><span class="nx">getCheckedRowKeys</span><span class="p">();</span>
-  <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="kd">var</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">rowKeys</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
 
-  <span class="k">for</span> <span class="p">(;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">grid</span><span class="p">.</span><span class="nx">removeRow</span><span class="p">(</span><span class="nx">rowKeys</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">rowKeys</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">grid</span><span class="p">.</span><span class="nx">removeRow</span><span class="p">(</span><span class="nx">rowKeys</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="id3">
+<h2>6.3. 결과 화면<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
+<img alt="_images/step06.png" src="_images/step06.png" />
 </div>
 </div>
 

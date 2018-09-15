@@ -29,7 +29,7 @@
     <link rel="index" title="색인" href="genindex.html" />
     <link rel="search" title="검색" href="search.html" />
     <link rel="next" title="6. 행 추가, 삭제 기능 만들기" href="06.html" />
-    <link rel="prev" title="4. 다양한 입력 모드 활성화하기" href="04.html" /> 
+    <link rel="prev" title="4. 다양한 편집 모드 활성화하기" href="04.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -79,8 +79,12 @@
 <li class="toctree-l1"><a class="reference internal" href="01.html">1. 개요</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02.html">2. 그리드 맛보기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03.html">3. 가계부 레이아웃 만들기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04.html">4. 다양한 입력 모드 활성화하기</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">5. 지출 비용 서식 변경하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04.html">4. 다양한 편집 모드 활성화하기</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. 지출 비용 서식 변경하기</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">5.1. 옵션 설정하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">5.2. 결과 화면</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="06.html">6. 행 추가, 삭제 기능 만들기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="07.html">7. 서버 연동하기 (기본)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="08.html">8. 서버 연동 - 데이터 수정, 삭제</a></li>
@@ -149,19 +153,20 @@
             
   <div class="section" id="id1">
 <h1>5. 지출 비용 서식 변경하기<a class="headerlink" href="#id1" title="제목 주소">¶</a></h1>
-<p>기본 레이아웃에 부가 정보들을 출력해줄 수 있도록 옵션을 추가해봅니다. 다음 요소들을 추가해봅니다. 그리드에서의 명칭 및 역할은 다음과 같습니다.</p>
+<p>기본 레이아웃에 부가 정보들을 출력해줄 수 있도록 옵션을 추가해봅니다. 다음 요소들을 추가해봅니다.
+그리드에서의 명칭 및 역할은 다음과 같습니다.</p>
 <ul class="simple">
 <li>메타 컬럼 : 각 행의 맨 앞에 위치하는 컬럼으로 체크박스, 라디오 버튼, 행 번호 등 실제 데이터와 관계 없는 요소들을 출력합니다.</li>
 <li>서머리 영역 : 그리드 테이블에서 푸터(footer)에 위치하는 영역이며, 전체 행에 대한 연산(총 합, 최대 값, 최소 값, 평균 등) 결과를 출력합니다.</li>
 </ul>
+<div class="section" id="id2">
+<h2>5.1. 옵션 설정하기<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
 
 <span class="kd">var</span> <span class="nx">grid</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">tui</span><span class="p">.</span><span class="nx">Grid</span><span class="p">({</span>
-  <span class="nx">el</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#grid&#39;</span><span class="p">),</span>
-  <span class="nx">data</span><span class="o">:</span> <span class="nx">rowData</span><span class="p">,</span>
-  <span class="nx">columns</span><span class="o">:</span> <span class="nx">columnData</span><span class="p">,</span>
+  <span class="p">...</span>
   <span class="nx">rowHeaders</span><span class="o">:</span> <span class="p">[</span> <span class="c1">// 메타 컬럼 추가</span>
-    <span class="s1">&#39;checkbox&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;radio&#39;</span><span class="p">,</span>
     <span class="s1">&#39;rowNum&#39;</span>
   <span class="p">],</span>
   <span class="nx">summary</span><span class="o">:</span> <span class="p">{</span> <span class="c1">// 서머리 영역 추가</span>
@@ -176,8 +181,12 @@
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">});</span>
-<span class="sb">```</span>
 </pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>5.2. 결과 화면<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
+<img alt="_images/step05.png" src="_images/step05.png" />
 </div>
 </div>
 
@@ -192,7 +201,7 @@
         <a href="06.html" class="btn btn-neutral float-right" title="6. 행 추가, 삭제 기능 만들기" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="04.html" class="btn btn-neutral" title="4. 다양한 입력 모드 활성화하기" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="04.html" class="btn btn-neutral" title="4. 다양한 편집 모드 활성화하기" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

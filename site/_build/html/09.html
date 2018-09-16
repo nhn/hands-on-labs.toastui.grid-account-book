@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>9. 클립보드 복사 데이터 가공하기 &mdash; Dooray! Messenger Incoming Hook Sample 1.0 documentation</title>
+  <title>9. 서버 연동 - 데이터 수정, 삭제 &mdash; Dooray! Messenger Incoming Hook Sample 1.0 documentation</title>
   
 
   
@@ -29,7 +29,7 @@
     <link rel="index" title="색인" href="genindex.html" />
     <link rel="search" title="검색" href="search.html" />
     <link rel="next" title="10. 정리" href="wrap-up.html" />
-    <link rel="prev" title="8. 지출 정보 행 삭제 및 삭제하기" href="08.html" /> 
+    <link rel="prev" title="8. 서버 연동 - 데이터 추가" href="08.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -79,12 +79,19 @@
 <li class="toctree-l1"><a class="reference internal" href="01.html">1. 개요</a></li>
 <li class="toctree-l1"><a class="reference internal" href="02.html">2. 그리드 맛보기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="03.html">3. 가계부 레이아웃 만들기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04.html">4. 다양한 입력 모드 활성화하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04.html">4. 다양한 편집 모드 활성화하기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="05.html">5. 지출 비용 서식 변경하기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06.html">6. 지출 항목별 총합 출력하기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07.html">7. 지출 날짜 선택하기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08.html">8. 지출 정보 행 삭제 및 삭제하기</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">9. 클립보드 복사 데이터 가공하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06.html">6. 행 추가, 삭제 기능 만들기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07.html">7. 서버 연동하기 (기본)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08.html">8. 서버 연동 - 데이터 추가</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">9. 서버 연동 - 데이터 수정, 삭제</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">9.1. 옵션 추가하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#net">9.2. Net 활성화하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">9.3. 서버 데이터 만들기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">9.4. 응답 결과 수정하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">9.5. 결과 화면</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="wrap-up.html">10. 정리</a></li>
 </ul>
 
@@ -131,7 +138,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>9. 클립보드 복사 데이터 가공하기</li>
+      <li>9. 서버 연동 - 데이터 수정, 삭제</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -149,7 +156,108 @@
            <div itemprop="articleBody">
             
   <div class="section" id="id1">
-<h1>9. 클립보드 복사 데이터 가공하기<a class="headerlink" href="#id1" title="제목 주소">¶</a></h1>
+<h1>9. 서버 연동 - 데이터 수정, 삭제<a class="headerlink" href="#id1" title="제목 주소">¶</a></h1>
+<p>앞서 만들어 본 데이터 추가 예제와 동일하게 수정, 삭제 동작에 대해서도 서버 연동을 처리해봅니다.</p>
+<div class="section" id="id2">
+<h2>9.1. 옵션 추가하기<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
+<p>행 추가, 삭제 기능은 버튼을 통해 서버와 연동하나, 수정 기능은 서버와 연동할 방법이 없습니다.
+데이터가 수정된 경우를 처리하기 위해 다음과 같이 <code class="docutils literal notranslate"><span class="pre">onAfterChange</span></code> 옵션을 추가합니다.
+<code class="docutils literal notranslate"><span class="pre">onAfterChange</span></code> 옵션은 데이터가 변경되었을 때 발생하는 콜백 함수이며 각 컬럼마다 설정을 다르게 할 수 있습니다.</p>
+<p>아래는 '내역' 컬럼에 추가한 예제이며, 다른 컬럼에도 옵션을 적용해봅니다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
+<span class="kd">var</span> <span class="nx">columnData</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">...</span>
+  <span class="p">{</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;내역&#39;</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;category1&#39;</span><span class="p">,</span>
+    <span class="p">...</span>
+    <span class="nx">onAfterChange</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">net</span> <span class="o">=</span> <span class="nx">grid</span><span class="p">.</span><span class="nx">getAddOn</span><span class="p">(</span><span class="s1">&#39;Net&#39;</span><span class="p">);</span>
+      <span class="nx">net</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;updateData&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="net">
+<h2>9.2. Net 활성화하기<a class="headerlink" href="#net" title="제목 주소">¶</a></h2>
+<p>이번 단계부터는 앞 챕터에서 실습한 내용과 동일합니다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// grid.js</span>
+
+<span class="nx">grid</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;Net&#39;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="p">...</span>
+  <span class="nx">api</span><span class="o">:</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="nx">updateData</span><span class="o">:</span> <span class="s1">&#39;api/updateData&#39;</span><span class="p">,</span> <span class="c1">// 수정</span>
+    <span class="nx">deleteData</span><span class="o">:</span> <span class="s1">&#39;api/deleteData&#39;</span> <span class="c1">// 삭제</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>삭제 기능은 앞서 작성한 <code class="docutils literal notranslate"><span class="pre">removeRow</span></code> 를 수정합니다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// grid.js</span>
+
+<span class="kd">function</span> <span class="nx">removeRow</span><span class="p">()</span> <span class="p">{</span>
+  <span class="p">...</span>
+
+  <span class="nx">net</span> <span class="o">=</span> <span class="nx">grid</span><span class="p">.</span><span class="nx">getAddOn</span><span class="p">(</span><span class="s1">&#39;Net&#39;</span><span class="p">);</span>
+  <span class="nx">net</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;deleteData&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>9.3. 서버 데이터 만들기<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// mock.js</span>
+
+<span class="nx">$</span><span class="p">.</span><span class="nx">mockjax</span><span class="p">({</span> <span class="c1">// 수정 응답 데이터</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;api/updateData&#39;</span><span class="p">,</span>
+    <span class="nx">responseTime</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nx">response</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">responseData</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;result&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="s2">&quot;data&quot;</span><span class="o">:</span> <span class="p">{},</span>
+        <span class="s2">&quot;modified&quot;</span><span class="o">:</span> <span class="s2">&quot;update&quot;</span><span class="p">,</span>
+      <span class="p">};</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">responseText</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">responseData</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">$</span><span class="p">.</span><span class="nx">mockjax</span><span class="p">({</span> <span class="c1">// 삭제 응답 데이터</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;api/deleteData&#39;</span><span class="p">,</span>
+    <span class="nx">responseTime</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nx">response</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">responseData</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;result&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="s2">&quot;data&quot;</span><span class="o">:</span> <span class="p">{},</span>
+        <span class="s2">&quot;modified&quot;</span><span class="o">:</span> <span class="s2">&quot;delete&quot;</span><span class="p">,</span>
+      <span class="p">};</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">responseText</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">responseData</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>9.4. 응답 결과 수정하기<a class="headerlink" href="#id4" title="제목 주소">¶</a></h2>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">grid</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">responseData</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">result</span> <span class="o">&amp;&amp;</span> <span class="nx">data</span><span class="p">.</span><span class="nx">modified</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">modified</span> <span class="o">+</span> <span class="s1">&#39; 되었습니다.&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>9.5. 결과 화면<a class="headerlink" href="#id5" title="제목 주소">¶</a></h2>
+<img alt="_images/step09-1.png" src="_images/step09-1.png" />
+<img alt="_images/step09-2.png" src="_images/step09-2.png" />
+</div>
 </div>
 
 
@@ -163,7 +271,7 @@
         <a href="wrap-up.html" class="btn btn-neutral float-right" title="10. 정리" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="08.html" class="btn btn-neutral" title="8. 지출 정보 행 삭제 및 삭제하기" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="08.html" class="btn btn-neutral" title="8. 서버 연동 - 데이터 추가" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -9,12 +9,12 @@
 버튼 추가하기
 ==============================
 
-클릭 이벤트가 발생하면 그리드 API를 호출할 수 있도록 버튼 엘리먼트를 추가해봅니다.
+클릭 이벤트가 발생하면 그리드 API를 호출할 수 있도록 ``index.html`` 파일에 버튼 엘리먼트를 추가해봅니다.
 
 .. code-block:: html
 
-    <button id="add" onclick="addRow()">추가</button>
-    <button id="remove" onclick="removeRow()">삭제</button>
+    <button id="add">추가</button>
+    <button id="remove">삭제</button>
 
 
 그리드 API 호출하기
@@ -27,25 +27,34 @@
 
     // 행 추가
     function addRow() {
-      grid.appendRow([
-        {
-          date: '',
-          category1: '',
-          category2: '',
-          payment: '',
-          amount: ''
-        }
-      ]);
+        grid.appendRow([
+            {
+              date: '',
+              category1: '',
+              category2: '',
+              payment: '',
+              amount: ''
+            }
+        ]);
     }
 
     // 체크된 행 삭제
     function removeRow() {
-      var rowKeys = grid.getCheckedRowKeys();
+        var rowKeys = grid.getCheckedRowKeys();
 
-      if (rowKeys.length) {
-        grid.removeRow(rowKeys[0]);
-      }
+        if (rowKeys.length) {
+            grid.removeRow(rowKeys[0]);
+        }
     }
+
+
+위에서 추가한 버튼에 클릭 이벤트를 바인딩하기 위해 다음 코드를 ``index.js`` 파일에 추가합니다.
+
+.. code-block:: javascript
+
+    document.getElementById('add').addEventListener('click', addRow);
+    document.getElementById('remove').addEventListener('click', removeRow);
+
 
 
 결과 화면

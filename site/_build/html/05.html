@@ -87,8 +87,9 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="06.html">6. 행 추가, 삭제 기능 만들기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="07.html">7. 서버 연동하기 (기본)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08.html">8. 서버 연동 - 데이터 수정, 삭제</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wrap-up.html">9. 정리</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08.html">8. 서버 연동 - 데이터 추가</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09.html">9. 서버 연동 - 데이터 수정, 삭제</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wrap-up.html">10. 정리</a></li>
 </ul>
 
             
@@ -161,25 +162,30 @@
 </ul>
 <div class="section" id="id2">
 <h2>5.1. 옵션 설정하기<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
+<p>다음과 같이 옵션을 설정해봅니다.</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">rowHeaders</span></code> : 메타 컬럼 추가</li>
+<li><code class="docutils literal notranslate"><span class="pre">summary</span></code> : 서머리 영역 추가</li>
+</ul>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
 
 <span class="kd">var</span> <span class="nx">grid</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">tui</span><span class="p">.</span><span class="nx">Grid</span><span class="p">({</span>
-  <span class="p">...</span>
-  <span class="nx">rowHeaders</span><span class="o">:</span> <span class="p">[</span> <span class="c1">// 메타 컬럼 추가</span>
-    <span class="s1">&#39;radio&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;rowNum&#39;</span>
-  <span class="p">],</span>
-  <span class="nx">summary</span><span class="o">:</span> <span class="p">{</span> <span class="c1">// 서머리 영역 추가</span>
-    <span class="nx">height</span><span class="o">:</span> <span class="mi">40</span><span class="p">,</span>
-    <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;bottom&#39;</span><span class="p">,</span>
-    <span class="nx">columnContent</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">amount</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">template</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">valueMap</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="s1">&#39;합계 : &#39;</span> <span class="o">+</span> <span class="nx">valueMap</span><span class="p">.</span><span class="nx">sum</span><span class="p">;</span>
+    <span class="p">...</span>
+    <span class="nx">rowHeaders</span><span class="o">:</span> <span class="p">[</span>
+        <span class="s1">&#39;radio&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;rowNum&#39;</span>
+    <span class="p">],</span>
+    <span class="nx">summary</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">height</span><span class="o">:</span> <span class="mi">40</span><span class="p">,</span>
+        <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;bottom&#39;</span><span class="p">,</span>
+        <span class="nx">columnContent</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">amount</span><span class="o">:</span> <span class="p">{</span>
+                <span class="nx">template</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">valueMap</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="s1">&#39;합계 : &#39;</span> <span class="o">+</span> <span class="nx">valueMap</span><span class="p">.</span><span class="nx">sum</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
         <span class="p">}</span>
-      <span class="p">}</span>
     <span class="p">}</span>
-  <span class="p">}</span>
 <span class="p">});</span>
 </pre></div>
 </div>

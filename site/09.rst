@@ -17,49 +17,52 @@
 .. code-block:: javascript
 
     ...
+
     var columnData = [
-      ...
-      {
-        title: '내역',
-        name: 'category1',
         ...
-        onAfterChange: function() {
-          net = grid.getAddOn('Net');
-          net.request('updateData');
-        }
-      },
-      ...
+        {
+            title: '내역',
+            name: 'category1',
+            ...
+            onAfterChange: function() {
+                net = grid.getAddOn('Net');
+                net.request('updateData');
+            }
+        },
+        ...
 
 
 Net 활성화하기
 ==============================
 
-이번 단계부터는 앞 챕터에서 실습한 내용과 동일합니다.
+이번 단계부터는 앞 장에서 실습한 내용과 동일합니다.
+수정, 삭제에 대한 API 옵션을 추가합니다.
 
 .. code-block:: javascript
 
-    // grid.js
+    // index.js
 
     grid.use('Net', {
       ...
-      api: {
-        ...
-        updateData: 'api/updateData', // 수정
-        deleteData: 'api/deleteData' // 삭제
-      }
+        api: {
+            ...
+            updateData: 'api/updateData', // 수정
+            deleteData: 'api/deleteData' // 삭제
+        }
     });
 
-삭제 기능은 앞서 작성한 ``removeRow`` 를 수정합니다.
+삭제 기능은 앞서 작성한 ``removeRow`` 를 수정하여 구현해봅니다.
 
 .. code-block:: javascript
 
-    // grid.js
+    // index.js
 
     function removeRow() {
-      ...
+        ...
 
-      net = grid.getAddOn('Net');
-      net.request('deleteData');
+        net = grid.getAddOn('Net');
+
+        net.request('deleteData');
     }
 
 
@@ -70,31 +73,33 @@ Net 활성화하기
 
     // mock.js
 
-    $.mockjax({ // 수정 응답 데이터
+    ...
+
+    mockjax({ // 수정 응답 데이터
         url: 'api/updateData',
         responseTime: 0,
         response: function() {
-          var responseData = {
-            "result": true,
-            "data": {},
-            "modified": "update",
-          };
+            var responseData = {
+                result: true,
+                data: {},
+                modifyType: 'update'
+            };
 
-          this.responseText = JSON.stringify(responseData);
+            this.responseText = JSON.stringify(responseData);
         }
     });
 
-    $.mockjax({ // 삭제 응답 데이터
+    mockjax({ // 삭제 응답 데이터
         url: 'api/deleteData',
         responseTime: 0,
         response: function() {
-          var responseData = {
-            "result": true,
-            "data": {},
-            "modified": "delete",
-          };
+            var responseData = {
+                result: true,
+                data: {},
+                modifyType: 'delete'
+            };
 
-          this.responseText = JSON.stringify(responseData);
+            this.responseText = JSON.stringify(responseData);
         }
     });
 
@@ -105,11 +110,11 @@ Net 활성화하기
 .. code-block:: javascript
 
     grid.on('response', function(response) {
-      const data = response.responseData;
+        var responseData = response.responseData;
 
-      if (data.result && data.modified) {
-        alert(data.modified + ' 되었습니다.');
-      }
+        if (responseData.result && responseData.modifyType) {
+          alert(responseData.modifyType + ' 되었습니다.');
+        }
     });
 
 

@@ -3,7 +3,7 @@
 ##############################
 
 지금까지는 그리드에서 데이터를 출력하는 기능만 사용해보았습니다.
-가계부에서는 데이터를 수정할 수 있어햐하므로, 그리드에서 제공하는 ``editOptions`` 옵션을 사용해 다양한 편집 모드를 활성화 해봅니다.
+가계부에서는 데이터를 수정할 수 있어야하므로, 그리드에서 제공하는 ``editOptions`` 옵션을 사용해 다양한 편집 모드를 활성화 해봅니다.
 
 각 카테고리에서 필요로 하는 편집 모드는 다음과 같습니다.
 
@@ -23,71 +23,90 @@
 
 .. code-block:: javascript
 
-    var rowData = [
-      {
-        date: '2018-09-01',
-        category1: '1',
-        category2: '회사 편의점',
-        payment: '4',
-        amount: '5000'
-      }
-    ];
+    ...
 
     var columnData = [
-      {
-        title: '날짜',
-        name: 'date',
-        editOptions: {
-          type: 'text'
+        {
+            title: '날짜',
+            name: 'date',
+            editOptions: {
+                type: 'text'
+            },
+            component: {
+                name: 'datePicker',
+                options: {
+                    format: 'yyyy-MM-dd'
+                }
+            }
         },
-        component: {
-          name: 'datePicker',
-          options: {
-            format: 'yyyy-MM-dd'
-          }
+        {
+            title: '내역',
+            name: 'category1',
+            editOptions: {
+                type: 'select',
+                listItems: [
+                    {
+                        text: '선택 안함',
+                        value: '0'
+                    },
+                    {
+                        text: '식비',
+                        value: '1'
+                    },
+                    {
+                        text: '문화 생활비',
+                        value: '2'
+                    },
+                    {
+                        text: '교통비',
+                        value: '3'
+                    },
+                    {
+                        text: '관리비',
+                        value: '4'
+                    }
+                ]
+            }
+        },
+        {
+            title: '비고',
+            name: 'category2',
+            editOptions: {
+                type: 'text'
+            }
+        },
+        {
+            title: '결제 방식',
+            name: 'payment',
+            editOptions: {
+                type: 'checkbox',
+                listItems: [
+                    {
+                        text: '현금',
+                        value: '1'
+                    },
+                    {
+                        text: '체크카드',
+                        value: '2'
+                    },
+                    {
+                        text: '신용카드',
+                        value: '3'
+                    },
+                    {
+                        text: '페이코',
+                        value: '4'
+                    }
+                ]
+            }
+        },
+        {
+            title: '금액',
+            name: 'amount',
+            editOptions: {
+                type: 'text'
+            }
         }
-      },
-      {
-        title: '내역',
-        name: 'category1',
-        editOptions: {
-          type: 'select',
-          listItems: [
-            { text: '선택 안함', value: '0' },
-            { text: '식비', value: '1' },
-            { text: '문화 생활비', value: '2' },
-            { text: '교통비', value: '3' },
-            { text: '관리비', value: '4' },
-          ]
-        }
-      },
-      {
-        title: '비고',
-        name: 'category2',
-        editOptions: {
-          type: 'text'
-        }
-      },
-      {
-        title: '결제 방식',
-        name: 'payment',
-        editOptions: {
-          type: 'checkbox',
-          listItems: [
-            { text: '현금', value: '1' },
-            { text: '체크카드', value: '2' },
-            { text: '신용카드', value: '3' },
-            { text: '페이코', value: '4' }
-          ]
-        }
-      },
-      {
-        title: '금액',
-        name: 'amount',
-        editOptions: {
-          type: 'text'
-        }
-      }
     ];
 
     ...
@@ -105,13 +124,13 @@
 
     ...
     var rowData = [
-      {
-        date: '2018-09-01',
-        category1: '1',
-        category2: '웨일즈마켓',
-        payment: '4',
-        amount: '5000'
-      }
+        {
+            date: '2018-09-01',
+            category1: '1',
+            category2: '웨일즈마켓',
+            payment: '4',
+            amount: '5000'
+        }
     ];
 
 
@@ -126,21 +145,29 @@
 
     ...
     {
-      title: '내역',
-      name: 'category1',
-      editOptions: {
-        type: 'select',
-        listItems: [
-          { text: '선택 안함', value: '0' },
-          { text: '식비', value: '1' },
-          { text: '문화 생활비', value: '2' },
-          { text: '교통비', value: '3' },
-          { text: '관리비', value: '4' },
-        ],
-        useViewMode: false
-      }
+        title: '내역',
+        name: 'category1',
+        editOptions: {
+            ...
+            useViewMode: false
+        }
     },
     ...
+
+
+
+TOAST UI 데이트 피커 사용하기
+==============================
+
+그리드에서는'날짜' 컬럼과 같이 날짜 선택 기능이 `TOAST UI 데이트 피커 <https://github.com/nhnent/tui.date-picker>`_ 컴포넌트에 의존하고 있으며, 정상적으로 사용하기 위해서는 해당 컴포넌트의 스타일을 추가해주어야 합니다.
+
+.. code-block:: html
+
+    <head>
+        ...
+        <link rel="stylesheet" type="text/css" href="./node_modules/tui-date-picker/dist/tui-date-picker.css" />
+    </head>
+
 
 
 결과 화면

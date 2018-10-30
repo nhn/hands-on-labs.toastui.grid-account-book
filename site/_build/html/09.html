@@ -165,44 +165,47 @@
 <code class="docutils literal notranslate"><span class="pre">onAfterChange</span></code> 옵션은 데이터가 변경되었을 때 발생하는 콜백 함수이며 각 컬럼마다 설정을 다르게 할 수 있습니다.</p>
 <p>아래는 '내역' 컬럼에 추가한 예제이며, 다른 컬럼에도 옵션을 적용해봅니다.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
+
 <span class="kd">var</span> <span class="nx">columnData</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="p">...</span>
-  <span class="p">{</span>
-    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;내역&#39;</span><span class="p">,</span>
-    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;category1&#39;</span><span class="p">,</span>
     <span class="p">...</span>
-    <span class="nx">onAfterChange</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">net</span> <span class="o">=</span> <span class="nx">grid</span><span class="p">.</span><span class="nx">getAddOn</span><span class="p">(</span><span class="s1">&#39;Net&#39;</span><span class="p">);</span>
-      <span class="nx">net</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;updateData&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-  <span class="p">},</span>
-  <span class="p">...</span>
+    <span class="p">{</span>
+        <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;내역&#39;</span><span class="p">,</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;category1&#39;</span><span class="p">,</span>
+        <span class="p">...</span>
+        <span class="nx">onAfterChange</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">net</span> <span class="o">=</span> <span class="nx">grid</span><span class="p">.</span><span class="nx">getAddOn</span><span class="p">(</span><span class="s1">&#39;Net&#39;</span><span class="p">);</span>
+            <span class="nx">net</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;updateData&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">...</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="net">
 <h2>9.2. Net 활성화하기<a class="headerlink" href="#net" title="제목 주소">¶</a></h2>
-<p>이번 단계부터는 앞 챕터에서 실습한 내용과 동일합니다.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// grid.js</span>
+<p>이번 단계부터는 앞 장에서 실습한 내용과 동일합니다.
+수정, 삭제에 대한 API 옵션을 추가합니다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// index.js</span>
 
 <span class="nx">grid</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;Net&#39;</span><span class="p">,</span> <span class="p">{</span>
   <span class="p">...</span>
-  <span class="nx">api</span><span class="o">:</span> <span class="p">{</span>
-    <span class="p">...</span>
-    <span class="nx">updateData</span><span class="o">:</span> <span class="s1">&#39;api/updateData&#39;</span><span class="p">,</span> <span class="c1">// 수정</span>
-    <span class="nx">deleteData</span><span class="o">:</span> <span class="s1">&#39;api/deleteData&#39;</span> <span class="c1">// 삭제</span>
-  <span class="p">}</span>
+    <span class="nx">api</span><span class="o">:</span> <span class="p">{</span>
+        <span class="p">...</span>
+        <span class="nx">updateData</span><span class="o">:</span> <span class="s1">&#39;api/updateData&#39;</span><span class="p">,</span> <span class="c1">// 수정</span>
+        <span class="nx">deleteData</span><span class="o">:</span> <span class="s1">&#39;api/deleteData&#39;</span> <span class="c1">// 삭제</span>
+    <span class="p">}</span>
 <span class="p">});</span>
 </pre></div>
 </div>
-<p>삭제 기능은 앞서 작성한 <code class="docutils literal notranslate"><span class="pre">removeRow</span></code> 를 수정합니다.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// grid.js</span>
+<p>삭제 기능은 앞서 작성한 <code class="docutils literal notranslate"><span class="pre">removeRow</span></code> 를 수정하여 구현해봅니다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// index.js</span>
 
 <span class="kd">function</span> <span class="nx">removeRow</span><span class="p">()</span> <span class="p">{</span>
-  <span class="p">...</span>
+    <span class="p">...</span>
 
-  <span class="nx">net</span> <span class="o">=</span> <span class="nx">grid</span><span class="p">.</span><span class="nx">getAddOn</span><span class="p">(</span><span class="s1">&#39;Net&#39;</span><span class="p">);</span>
-  <span class="nx">net</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;deleteData&#39;</span><span class="p">);</span>
+    <span class="nx">net</span> <span class="o">=</span> <span class="nx">grid</span><span class="p">.</span><span class="nx">getAddOn</span><span class="p">(</span><span class="s1">&#39;Net&#39;</span><span class="p">);</span>
+
+    <span class="nx">net</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;deleteData&#39;</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -211,31 +214,33 @@
 <h2>9.3. 서버 데이터 만들기<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// mock.js</span>
 
-<span class="nx">$</span><span class="p">.</span><span class="nx">mockjax</span><span class="p">({</span> <span class="c1">// 수정 응답 데이터</span>
+<span class="p">...</span>
+
+<span class="nx">mockjax</span><span class="p">({</span> <span class="c1">// 수정 응답 데이터</span>
     <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;api/updateData&#39;</span><span class="p">,</span>
     <span class="nx">responseTime</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
     <span class="nx">response</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">responseData</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;result&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="s2">&quot;data&quot;</span><span class="o">:</span> <span class="p">{},</span>
-        <span class="s2">&quot;modified&quot;</span><span class="o">:</span> <span class="s2">&quot;update&quot;</span><span class="p">,</span>
-      <span class="p">};</span>
+        <span class="kd">var</span> <span class="nx">responseData</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">result</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nx">data</span><span class="o">:</span> <span class="p">{},</span>
+            <span class="nx">modifyType</span><span class="o">:</span> <span class="s1">&#39;update&#39;</span>
+        <span class="p">};</span>
 
-      <span class="k">this</span><span class="p">.</span><span class="nx">responseText</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">responseData</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">responseText</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">responseData</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">});</span>
 
-<span class="nx">$</span><span class="p">.</span><span class="nx">mockjax</span><span class="p">({</span> <span class="c1">// 삭제 응답 데이터</span>
+<span class="nx">mockjax</span><span class="p">({</span> <span class="c1">// 삭제 응답 데이터</span>
     <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;api/deleteData&#39;</span><span class="p">,</span>
     <span class="nx">responseTime</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
     <span class="nx">response</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">responseData</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;result&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="s2">&quot;data&quot;</span><span class="o">:</span> <span class="p">{},</span>
-        <span class="s2">&quot;modified&quot;</span><span class="o">:</span> <span class="s2">&quot;delete&quot;</span><span class="p">,</span>
-      <span class="p">};</span>
+        <span class="kd">var</span> <span class="nx">responseData</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">result</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nx">data</span><span class="o">:</span> <span class="p">{},</span>
+            <span class="nx">modifyType</span><span class="o">:</span> <span class="s1">&#39;delete&#39;</span>
+        <span class="p">};</span>
 
-      <span class="k">this</span><span class="p">.</span><span class="nx">responseText</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">responseData</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">responseText</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">responseData</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">});</span>
 </pre></div>
@@ -244,11 +249,11 @@
 <div class="section" id="id4">
 <h2>9.4. 응답 결과 수정하기<a class="headerlink" href="#id4" title="제목 주소">¶</a></h2>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">grid</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">responseData</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">responseData</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">responseData</span><span class="p">;</span>
 
-  <span class="k">if</span> <span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">result</span> <span class="o">&amp;&amp;</span> <span class="nx">data</span><span class="p">.</span><span class="nx">modified</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">alert</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">modified</span> <span class="o">+</span> <span class="s1">&#39; 되었습니다.&#39;</span><span class="p">);</span>
-  <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">responseData</span><span class="p">.</span><span class="nx">result</span> <span class="o">&amp;&amp;</span> <span class="nx">responseData</span><span class="p">.</span><span class="nx">modifyType</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">alert</span><span class="p">(</span><span class="nx">responseData</span><span class="p">.</span><span class="nx">modifyType</span> <span class="o">+</span> <span class="s1">&#39; 되었습니다.&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
 <span class="p">});</span>
 </pre></div>
 </div>

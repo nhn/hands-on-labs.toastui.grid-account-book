@@ -87,7 +87,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#net">8.1. Net 활성화하기</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id2">8.2. 서버 데이터 만들기</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id3">8.3. 응답 결과 처리하기</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">8.4. 결과 화면</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">8.4. 결과 화면</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="09.html">9. 서버 연동 - 데이터 수정, 삭제</a></li>
@@ -156,35 +156,38 @@
             
   <div class="section" id="id1">
 <h1>8. 서버 연동 - 데이터 추가<a class="headerlink" href="#id1" title="제목 주소">¶</a></h1>
-<p>Net을 사용하여 데이터를 추가(create), 수정(update), 삭제(delete)할 때 그리드에서 <code class="docutils literal notranslate"><span class="pre">net</span></code> 인스턴스를 사용해야 합니다.
+<p>Net을 사용하여 데이터를 추가(Create), 수정(update), 삭제(delete)할 때 그리드에서 <code class="docutils literal notranslate"><span class="pre">net</span></code> 인스턴스를 사용해야 합니다.
 <code class="docutils literal notranslate"><span class="pre">net</span></code> 인스턴스는 <code class="docutils literal notranslate"><span class="pre">grid.getAddOn</span></code> API로 가져올 수 있으며, <code class="docutils literal notranslate"><span class="pre">net.request</span></code> API에 처리하려는 동작을 구분하는 값을 파라미터로 넘겨 처리할 수 있습니다.</p>
 <div class="section" id="net">
 <h2>8.1. Net 활성화하기<a class="headerlink" href="#net" title="제목 주소">¶</a></h2>
 <p>먼저, 데이터 추가 동작이 실행될 때 호출하는 서버 API 정보를 추가합니다.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// grid.js</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// index.js</span>
 
 <span class="nx">grid</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;Net&#39;</span><span class="p">,</span> <span class="p">{</span>
-  <span class="p">...</span>
-  <span class="nx">api</span><span class="o">:</span> <span class="p">{</span>
     <span class="p">...</span>
-    <span class="nx">createData</span><span class="o">:</span> <span class="s1">&#39;api/createData&#39;</span>
-  <span class="p">}</span>
+    <span class="nx">api</span><span class="o">:</span> <span class="p">{</span>
+        <span class="p">...</span>
+        <span class="nx">createData</span><span class="o">:</span> <span class="s1">&#39;api/createData&#39;</span>
+    <span class="p">}</span>
 <span class="p">});</span>
 </pre></div>
 </div>
 <p>앞에서 작성한 <code class="docutils literal notranslate"><span class="pre">addRow</span></code> 함수를 수정하여, 새로운 행이 추가될 때 서버를 호출할 수 있도록 다음 코드를 추가합니다.
-<cite>net.request`는 기본적으로 체크된 행만 처리하도록 되어있어, 현재 구현하려는 기능에서는 이 기본 옵션을 비활성화해야 합니다.
-아래와 같이 ``checkedOnly: false`</cite> 옵션을 추가합니다.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// grid.js</span>
+<code class="docutils literal notranslate"><span class="pre">net.request</span></code> 는 기본적으로 체크된 행만 처리하도록 되어있어, 현재 구현하려는 기능에서는 이 기본 옵션을 비활성화해야 합니다.
+아래와 같이 <code class="docutils literal notranslate"><span class="pre">checkedOnly:</span> <span class="pre">false</span></code> 옵션을 추가합니다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// index.js</span>
 
 <span class="kd">var</span> <span class="nx">net</span><span class="p">;</span>
 
+<span class="p">...</span>
+
 <span class="kd">function</span> <span class="nx">addRow</span><span class="p">()</span> <span class="p">{</span>
-  <span class="p">...</span>
-  <span class="nx">net</span> <span class="o">=</span> <span class="nx">grid</span><span class="p">.</span><span class="nx">getAddOn</span><span class="p">(</span><span class="s1">&#39;Net&#39;</span><span class="p">);</span>
-  <span class="nx">net</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;createData&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">checkedOnly</span><span class="o">:</span> <span class="kc">false</span>
-  <span class="p">});</span>
+    <span class="p">...</span>
+    <span class="nx">net</span> <span class="o">=</span> <span class="nx">grid</span><span class="p">.</span><span class="nx">getAddOn</span><span class="p">(</span><span class="s1">&#39;Net&#39;</span><span class="p">);</span>
+
+    <span class="nx">net</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;createData&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">checkedOnly</span><span class="o">:</span> <span class="kc">false</span>
+    <span class="p">});</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -195,17 +198,19 @@
 이 때 응답 데이터에는 <code class="docutils literal notranslate"><span class="pre">result</span></code>, <code class="docutils literal notranslate"><span class="pre">data</span></code> 속성 값을 필수로 가지고 있어야 하며 그 외 값은 선택적으로 추가할 수 있습니다.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// mock.js</span>
 
-<span class="nx">$</span><span class="p">.</span><span class="nx">mockjax</span><span class="p">({</span>
+<span class="p">...</span>
+
+<span class="nx">mockjax</span><span class="p">({</span>
     <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;api/createData&#39;</span><span class="p">,</span>
     <span class="nx">responseTime</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
     <span class="nx">response</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">responseData</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;result&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">// 필수</span>
-        <span class="s2">&quot;data&quot;</span><span class="o">:</span> <span class="p">{},</span> <span class="c1">// 필수</span>
-        <span class="s2">&quot;modified&quot;</span><span class="o">:</span> <span class="kc">true</span> <span class="c1">// 선택</span>
-      <span class="p">};</span>
+        <span class="kd">var</span> <span class="nx">responseData</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">result</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">// 필수</span>
+            <span class="nx">data</span><span class="o">:</span> <span class="p">{},</span> <span class="c1">// 필수</span>
+            <span class="nx">modifyType</span><span class="o">:</span> <span class="s1">&#39;create&#39;</span> <span class="c1">// 선택</span>
+        <span class="p">};</span>
 
-      <span class="k">this</span><span class="p">.</span><span class="nx">responseText</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">responseData</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">responseText</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">responseData</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">});</span>
 </pre></div>
@@ -213,35 +218,35 @@
 </div>
 <div class="section" id="id3">
 <h2>8.3. 응답 결과 처리하기<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
-<p>그리드에서는 [커스텀 이벤트](<a class="reference external" href="https://github.com/nhnent/tui.grid/blob/master/docs/custom-event.md">https://github.com/nhnent/tui.grid/blob/master/docs/custom-event.md</a>)를 사용하여 이벤트를 등록할 수 있습니다.
+<p>그리드에서는 <a class="reference external" href="https://github.com/nhnent/tui.grid/blob/master/docs/custom-event.md">커스텀 이벤트</a> 를 사용하여 이벤트를 등록할 수 있습니다.
 Net를 사용하는 경우 다음과 같은 이벤트를 사용할 수 있습니다.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">grid</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;beforeRequest&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// before sending a request</span>
+    <span class="c1">// before sending a request</span>
 <span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// when receiving response regardless of success/fail</span>
+    <span class="c1">// when receiving response regardless of success/fail</span>
 <span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;successResponse&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// when the result is true</span>
+    <span class="c1">// when the result is true</span>
 <span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;failResponse&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// when the result is false</span>
+    <span class="c1">// when the result is false</span>
 <span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;errorResponse&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// when an error occurred</span>
+    <span class="c1">// when an error occurred</span>
 <span class="p">});</span>
 </pre></div>
 </div>
 <p>가계부 예제에서는 <code class="docutils literal notranslate"><span class="pre">response</span></code> 이벤트를 사용하여 서버에서 응답이 정상적으로 들어왔을 때 결과를 출력해봅니다.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// grid.js</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// index.js</span>
 
 <span class="nx">grid</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">responseData</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">responseData</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">responseData</span><span class="p">;</span>
 
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">modified</span><span class="p">);</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">result</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;modifyType: &#39;</span><span class="p">,</span> <span class="nx">responseData</span><span class="p">.</span><span class="nx">modifyType</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;data: &#39;</span><span class="p">,</span> <span class="nx">responseData</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
 <span class="p">});</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id4">
-<h2>8.4. 결과 화면<a class="headerlink" href="#id4" title="제목 주소">¶</a></h2>
+<div class="section" id="id5">
+<h2>8.4. 결과 화면<a class="headerlink" href="#id5" title="제목 주소">¶</a></h2>
 <img alt="_images/step08.png" src="_images/step08.png" />
 </div>
 </div>

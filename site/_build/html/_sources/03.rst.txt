@@ -3,7 +3,10 @@
 ##############################
 
 지금부터 간단한 가계부를 만들어보겠습니다.
-앞서 살펴보았던 기능들을 이용해 가계부의 기본 정보를 추가해 레이아웃을 만들어봅니다.
+이전에 살펴보았던 기능들을 이용해 가계부의 기본 정보를 추가해 레이아웃을 만들어봅니다.
+
+앞으로 추가될 코드는 프로젝트 폴더의 ``index.js`` 파일에 작성합니다.
+그리고 개발 화면은 ``npm run develop`` 커맨드를 실행해 확인해봅니다.
 
 컬럼 설정하기
 ==============================
@@ -11,26 +14,26 @@
 .. code-block:: javascript
 
     var columnData = [
-      {
-        title: '날짜',
-        name: 'date'
-      },
-      {
-        title: '내역',
-        name: 'category1'
-      },
-      {
-        title: '비고',
-        name: 'category2'
-      },
-      {
-        title: '결제 방식',
-        name: 'payment'
-      },
-      {
-        title: '금액',
-        name: 'amount'
-      }
+        {
+            title: '날짜',
+            name: 'date'
+        },
+        {
+            title: '내역',
+            name: 'category1'
+        },
+        {
+            title: '비고',
+            name: 'category2'
+        },
+        {
+            title: '결제 방식',
+            name: 'payment'
+        },
+        {
+            title: '금액',
+            name: 'amount'
+        }
     ];
 
     var grid = new tui.Grid({
@@ -48,13 +51,13 @@
     ...
 
     var rowData = [
-      {
-        date: '2018-09-01',
-        category1: '식비',
-        category2: '회사 편의점',
-        payment: '페이코',
-        amount: '5000'
-      }
+        {
+            date: '2018-09-01',
+            category1: '식비',
+            category2: '회사 편의점',
+            payment: '페이코',
+            amount: '5000'
+        }
     ];
 
     var grid = new tui.Grid({

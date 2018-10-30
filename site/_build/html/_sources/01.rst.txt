@@ -16,9 +16,8 @@ TOAST UI Grid 사용 방법을 익히고 활용해봅니다.
 * IDE (PC에 설치된 것 사용)
 * 터미널 (iTerm 권장)
 * 테스트 브라우저 (크롬)
-* 엑셀 파일
 
-소스 코드
+참고
 ==========
 
 * Github : https://github.com/nhnent/tui.grid

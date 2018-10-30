@@ -79,10 +79,10 @@
 <li class="toctree-l1"><a class="reference internal" href="01.html">1. 개요</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">2. 그리드 맛보기</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#npm">2.1. npm으로 그리드 사용하기</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">2.2. 스크립트 추가하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">2.2. 그리드 생성자 함수 가져오기</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#html-css">2.3. html, css 추가하기</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">2.4. 그리드 인스턴스 생성하기</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">2.5. 결과 화면</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">2.4. 그리드 인스턴스 생성하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">2.5. 결과 화면</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="03.html">3. 가계부 레이아웃 만들기</a></li>
@@ -90,8 +90,9 @@
 <li class="toctree-l1"><a class="reference internal" href="05.html">5. 지출 비용 서식 변경하기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06.html">6. 행 추가, 삭제 기능 만들기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="07.html">7. 서버 연동하기 (기본)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08.html">8. 서버 연동 - 데이터 수정, 삭제</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wrap-up.html">9. 정리</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08.html">8. 서버 연동 - 데이터 추가</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09.html">9. 서버 연동 - 데이터 수정, 삭제</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wrap-up.html">10. 정리</a></li>
 </ul>
 
             
@@ -158,27 +159,30 @@
 <h1>2. 그리드 맛보기<a class="headerlink" href="#id1" title="제목 주소">¶</a></h1>
 <div class="section" id="npm">
 <h2>2.1. npm으로 그리드 사용하기<a class="headerlink" href="#npm" title="제목 주소">¶</a></h2>
-<p>node 환경에서 그리드를 사용하는 방법을 익혀봅니다.</p>
+<p><a class="reference external" href="https://nodejs.org/ko/">노드 환경</a> 에서 모듈로 그리드를 사용하는 방법을 익혀봅니다.</p>
 <ol class="arabic simple">
-<li>그리드를 <code class="docutils literal notranslate"><span class="pre">npm</span></code> 으로 설치합니다.</li>
+<li><code class="docutils literal notranslate"><span class="pre">npm</span></code> 으로 그리드 최신 버전을 설치합니다.</li>
 </ol>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>npm install tui-grid
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
-<li>프로젝트 내 <code class="docutils literal notranslate"><span class="pre">package.json</span></code> 파일에 정상적으로 그리드가 추가되었는지 확인합니다.</li>
+<li>프로젝트 폴더 내 <code class="docutils literal notranslate"><span class="pre">package.json</span></code> 파일에 정상적으로 그리드가 추가되었는지 확인합니다.</li>
 </ol>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;dependencies&quot;</span><span class="p">:</span> <span class="s2">&quot;tui-grid&quot;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;dependencies&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="s2">&quot;tui-grid&quot;</span><span class="o">:</span> <span class="s2">&quot;^3.2.0&quot;</span>
+  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id2">
-<h2>2.2. 스크립트 추가하기<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
-<p>모듈 포맷으로 그리드를 가져와 사용하는 방법을 익혀봅니다.</p>
+<div class="section" id="id3">
+<h2>2.2. 그리드 생성자 함수 가져오기<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
+<p>모듈 포맷(<code class="docutils literal notranslate"><span class="pre">require</span></code>)으로 그리드를 가져와 사용하는 방법을 익혀봅니다.</p>
 <ol class="arabic simple">
-<li>프로젝트의 <code class="docutils literal notranslate"><span class="pre">src/index.js</span></code> 파일을 열고 그리드를 추가해봅니다.</li>
+<li>프로젝트 폴더에서 <code class="docutils literal notranslate"><span class="pre">src/js/index.js</span></code> 파일(이하 <code class="docutils literal notranslate"><span class="pre">index.js</span></code>)을 열고 그리드를 추가해봅니다.</li>
 </ol>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">Grid</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;tui-grid&#39;</span><span class="p">);</span>
 
@@ -186,84 +190,88 @@
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
-<li>다음 커멘드를 실행하여 서버를 띄워 그리드를 정상적으로 가져왔는지 확인해봅니다.</li>
+<li>다음 커맨드를 실행하여 서버를 실행해보고 그리드를 정상적으로 가져왔는지 확인해봅니다.</li>
 </ol>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>npm run develop
 </pre></div>
 </div>
+<ol class="arabic simple" start="3">
+<li>크롬 개발자 도구(단축키: option + cmd + i)를 실행하여 아래와 같이 출력되었는지 확인해봅니다.</li>
+</ol>
+<img alt="_images/step02-1.png" src="_images/step02-1.png" />
 </div>
 <div class="section" id="html-css">
 <h2>2.3. html, css 추가하기<a class="headerlink" href="#html-css" title="제목 주소">¶</a></h2>
-<p>그리드를 UI를 위한 html 및 css 파일을 추가해봅니다.</p>
+<p>그리드 UI를 위한 html 및 css 파일을 추가해봅니다.</p>
 <ol class="arabic simple">
-<li>프로젝트의 <code class="docutils literal notranslate"><span class="pre">demo/index.html</span></code> 파일을 열고 태그(그리드 생성 컨테이너 엘리먼트)를 추가합니다.</li>
+<li>프로젝트 폴더에서 <code class="docutils literal notranslate"><span class="pre">index.html</span></code> 파일에 태그(그리드 생성 컨테이너 엘리먼트)를 추가합니다.</li>
 </ol>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-  ...
-  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;grid&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-  ...
+    ...
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;grid&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    ...
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
-<li>css는 다음 2가지 방식으로 추가할 수 있습니다.</li>
+<li>프로젝트 폴더에서 <code class="docutils literal notranslate"><span class="pre">index.html</span></code> 파일에 다음 경로로 css 파일을 추가합니다.</li>
 </ol>
-<ul class="simple">
-<li>css 파일을 직접 추가 : <code class="docutils literal notranslate"><span class="pre">demo/index.html</span></code> 파일에 스타일 태그를 삽입합니다.</li>
-</ul>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-  ...
-  <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;../node_modules/tui-grid/tui-grid.css&quot;</span> <span class="p">/&gt;</span>
-  ...
+    ...
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;./node_modules/tui-grid/dist/tui-grid.css&quot;</span> <span class="p">/&gt;</span>
 <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li>모듈 포맷으로 추가 : 스크립트를 추가하는 방식과 동일하게 모듈로 가져옵니다.</li>
-</ul>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;tui-grid/tui-grid.css&#39;</span><span class="p">);</span>
-</pre></div>
 </div>
-</div>
-<div class="section" id="id3">
-<h2>2.4. 그리드 인스턴스 생성하기<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
+<div class="section" id="id4">
+<h2>2.4. 그리드 인스턴스 생성하기<a class="headerlink" href="#id4" title="제목 주소">¶</a></h2>
 <p>그리드는 생성자 함수로 인스턴스를 생성하여 사용하고 관련 메서드들을 API로 사용할 수 있습니다.</p>
 <ol class="arabic simple">
-<li>인스턴스를 생성해봅니다. 이 때 반드시 필수 옵션을 파라미터로 넘겨주어야 합니다.</li>
+<li>인스턴스를 생성해봅니다. 이 때 반드시 필수 옵션을 파라미터로 넘겨주어야 합니다. <code class="docutils literal notranslate"><span class="pre">index.js</span></code> 파일에 다음 코드를 추가해봅니다.</li>
 </ol>
 <ul class="simple">
-<li>인스턴스 생성 옵션 정보 : <a class="reference external" href="https://nhnent.github.io/tui.grid/latest/Grid.html">https://nhnent.github.io/tui.grid/latest/Grid.html</a></li>
+<li><dl class="first docutils">
+<dt>기본 옵션 정보</dt>
+<dd><ul class="first last">
+<li><code class="docutils literal notranslate"><span class="pre">el</span></code> : 그리드가 생성되는 컨테이너 엘리먼트 지정</li>
+<li><code class="docutils literal notranslate"><span class="pre">columns</span></code> : 그리드 컬럼 정보 설정</li>
+<li><code class="docutils literal notranslate"><span class="pre">data</span></code> : 초기 생성 데이터 설정</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>그 외 인스턴스 생성 옵션 정보 : <a class="reference external" href="https://nhnent.github.io/tui.grid/latest/Grid">https://nhnent.github.io/tui.grid/latest/Grid</a></li>
 </ul>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
 
 <span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">el</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#grid&#39;</span><span class="p">),</span> <span class="c1">// 그리드가 생성되는 컨테이너 엘리먼트</span>
-  <span class="nx">columns</span><span class="o">:</span> <span class="p">[</span> <span class="c1">// 그리드 컬럼 정보 세팅</span>
-    <span class="p">{</span>
-        <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Name&#39;</span><span class="p">,</span>
-        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;name&#39;</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-        <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Artist&#39;</span><span class="p">,</span>
-        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;artist&#39;</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-        <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Release&#39;</span><span class="p">,</span>
-        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;release&#39;</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-        <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Genre&#39;</span><span class="p">,</span>
-        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;genre&#39;</span>
-    <span class="p">}</span>
-  <span class="p">],</span>
-  <span class="nx">data</span><span class="o">:</span> <span class="p">[</span> <span class="c1">// 그리드 데이터 세팅</span>
-    <span class="p">{</span>
-        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Beautiful Lies&#39;</span><span class="p">,</span>
-        <span class="nx">artist</span><span class="o">:</span> <span class="s1">&#39;Birdy&#39;</span><span class="p">,</span>
-        <span class="nx">release</span><span class="o">:</span> <span class="s1">&#39;2016.03.26&#39;</span><span class="p">,</span>
-        <span class="nx">genre</span><span class="o">:</span> <span class="s1">&#39;Pop&#39;</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
+    <span class="nx">el</span><span class="o">:</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;grid&#39;</span><span class="p">),</span>
+    <span class="nx">columns</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Name&#39;</span><span class="p">,</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;name&#39;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Artist&#39;</span><span class="p">,</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;artist&#39;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Release&#39;</span><span class="p">,</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;release&#39;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Genre&#39;</span><span class="p">,</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;genre&#39;</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nx">data</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Beautiful Lies&#39;</span><span class="p">,</span>
+            <span class="nx">artist</span><span class="o">:</span> <span class="s1">&#39;Birdy&#39;</span><span class="p">,</span>
+            <span class="nx">release</span><span class="o">:</span> <span class="s1">&#39;2016.03.26&#39;</span><span class="p">,</span>
+            <span class="nx">genre</span><span class="o">:</span> <span class="s1">&#39;Pop&#39;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
 <span class="p">};</span>
 
 <span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Grid</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
@@ -280,27 +288,27 @@
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
 
 <span class="kd">var</span> <span class="nx">rowData</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="p">{</span>
-      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;+&#39;</span><span class="p">,</span>
-      <span class="nx">artist</span><span class="o">:</span> <span class="s1">&#39;Ad Sheeran&#39;</span><span class="p">,</span>
-      <span class="nx">release</span><span class="o">:</span> <span class="s1">&#39;2014.06.24&#39;</span><span class="p">,</span>
-      <span class="nx">genre</span><span class="o">:</span> <span class="s1">&#39;Pop&#39;</span>
-  <span class="p">},</span>
-  <span class="p">{</span>
-      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;A Head Full Of Dreams&#39;</span><span class="p">,</span>
-      <span class="nx">artist</span><span class="o">:</span> <span class="s1">&#39;Coldplay&#39;</span><span class="p">,</span>
-      <span class="nx">release</span><span class="o">:</span> <span class="s1">&#39;2015.12.04&#39;</span><span class="p">,</span>
-      <span class="nx">genre</span><span class="o">:</span> <span class="s1">&#39;Rock&#39;</span>
-  <span class="p">}</span>
+    <span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;+&#39;</span><span class="p">,</span>
+        <span class="nx">artist</span><span class="o">:</span> <span class="s1">&#39;Ad Sheeran&#39;</span><span class="p">,</span>
+        <span class="nx">release</span><span class="o">:</span> <span class="s1">&#39;2014.06.24&#39;</span><span class="p">,</span>
+        <span class="nx">genre</span><span class="o">:</span> <span class="s1">&#39;Pop&#39;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;A Head Full Of Dreams&#39;</span><span class="p">,</span>
+        <span class="nx">artist</span><span class="o">:</span> <span class="s1">&#39;Coldplay&#39;</span><span class="p">,</span>
+        <span class="nx">release</span><span class="o">:</span> <span class="s1">&#39;2015.12.04&#39;</span><span class="p">,</span>
+        <span class="nx">genre</span><span class="o">:</span> <span class="s1">&#39;Rock&#39;</span>
+    <span class="p">}</span>
 <span class="p">];</span>
 
 <span class="nx">instance</span><span class="p">.</span><span class="nx">appendRow</span><span class="p">(</span><span class="nx">rowData</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id4">
-<h2>2.5. 결과 화면<a class="headerlink" href="#id4" title="제목 주소">¶</a></h2>
-<img alt="_images/step02.png" src="_images/step02.png" />
+<div class="section" id="id5">
+<h2>2.5. 결과 화면<a class="headerlink" href="#id5" title="제목 주소">¶</a></h2>
+<img alt="_images/step02-2.png" src="_images/step02-2.png" />
 </div>
 </div>
 

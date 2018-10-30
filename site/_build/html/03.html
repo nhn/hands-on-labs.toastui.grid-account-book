@@ -88,8 +88,9 @@
 <li class="toctree-l1"><a class="reference internal" href="05.html">5. 지출 비용 서식 변경하기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="06.html">6. 행 추가, 삭제 기능 만들기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="07.html">7. 서버 연동하기 (기본)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08.html">8. 서버 연동 - 데이터 수정, 삭제</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wrap-up.html">9. 정리</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08.html">8. 서버 연동 - 데이터 추가</a></li>
+<li class="toctree-l1"><a class="reference internal" href="09.html">9. 서버 연동 - 데이터 수정, 삭제</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wrap-up.html">10. 정리</a></li>
 </ul>
 
             
@@ -155,30 +156,32 @@
   <div class="section" id="id1">
 <h1>3. 가계부 레이아웃 만들기<a class="headerlink" href="#id1" title="제목 주소">¶</a></h1>
 <p>지금부터 간단한 가계부를 만들어보겠습니다.
-앞서 살펴보았던 기능들을 이용해 가계부의 기본 정보를 추가해 레이아웃을 만들어봅니다.</p>
+이전에 살펴보았던 기능들을 이용해 가계부의 기본 정보를 추가해 레이아웃을 만들어봅니다.</p>
+<p>앞으로 추가될 코드는 프로젝트 폴더의 <code class="docutils literal notranslate"><span class="pre">index.js</span></code> 파일에 작성합니다.
+그리고 개발 화면은 <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">develop</span></code> 커맨드를 실행해 확인해봅니다.</p>
 <div class="section" id="id2">
 <h2>3.1. 컬럼 설정하기<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">columnData</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="p">{</span>
-    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;날짜&#39;</span><span class="p">,</span>
-    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;date&#39;</span>
-  <span class="p">},</span>
-  <span class="p">{</span>
-    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;내역&#39;</span><span class="p">,</span>
-    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;category1&#39;</span>
-  <span class="p">},</span>
-  <span class="p">{</span>
-    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;비고&#39;</span><span class="p">,</span>
-    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;category2&#39;</span>
-  <span class="p">},</span>
-  <span class="p">{</span>
-    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;결제 방식&#39;</span><span class="p">,</span>
-    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;payment&#39;</span>
-  <span class="p">},</span>
-  <span class="p">{</span>
-    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;금액&#39;</span><span class="p">,</span>
-    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;amount&#39;</span>
-  <span class="p">}</span>
+    <span class="p">{</span>
+        <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;날짜&#39;</span><span class="p">,</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;date&#39;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;내역&#39;</span><span class="p">,</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;category1&#39;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;비고&#39;</span><span class="p">,</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;category2&#39;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;결제 방식&#39;</span><span class="p">,</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;payment&#39;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;금액&#39;</span><span class="p">,</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;amount&#39;</span>
+    <span class="p">}</span>
 <span class="p">];</span>
 
 <span class="kd">var</span> <span class="nx">grid</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">tui</span><span class="p">.</span><span class="nx">Grid</span><span class="p">({</span>
@@ -194,13 +197,13 @@
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
 
 <span class="kd">var</span> <span class="nx">rowData</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="p">{</span>
-    <span class="nx">date</span><span class="o">:</span> <span class="s1">&#39;2018-09-01&#39;</span><span class="p">,</span>
-    <span class="nx">category1</span><span class="o">:</span> <span class="s1">&#39;식비&#39;</span><span class="p">,</span>
-    <span class="nx">category2</span><span class="o">:</span> <span class="s1">&#39;회사 편의점&#39;</span><span class="p">,</span>
-    <span class="nx">payment</span><span class="o">:</span> <span class="s1">&#39;페이코&#39;</span><span class="p">,</span>
-    <span class="nx">amount</span><span class="o">:</span> <span class="s1">&#39;5000&#39;</span>
-  <span class="p">}</span>
+    <span class="p">{</span>
+        <span class="nx">date</span><span class="o">:</span> <span class="s1">&#39;2018-09-01&#39;</span><span class="p">,</span>
+        <span class="nx">category1</span><span class="o">:</span> <span class="s1">&#39;식비&#39;</span><span class="p">,</span>
+        <span class="nx">category2</span><span class="o">:</span> <span class="s1">&#39;회사 편의점&#39;</span><span class="p">,</span>
+        <span class="nx">payment</span><span class="o">:</span> <span class="s1">&#39;페이코&#39;</span><span class="p">,</span>
+        <span class="nx">amount</span><span class="o">:</span> <span class="s1">&#39;5000&#39;</span>
+    <span class="p">}</span>
 <span class="p">];</span>
 
 <span class="kd">var</span> <span class="nx">grid</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">tui</span><span class="p">.</span><span class="nx">Grid</span><span class="p">({</span>

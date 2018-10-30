@@ -12,27 +12,32 @@
 옵션 설정하기
 ==============================
 
+다음과 같이 옵션을 설정해봅니다.
+
+* ``rowHeaders`` : 메타 컬럼 추가
+* ``summary`` : 서머리 영역 추가
+
 .. code-block:: javascript
 
     ...
 
     var grid = new tui.Grid({
-      ...
-      rowHeaders: [ // 메타 컬럼 추가
-        'radio',
-        'rowNum'
-      ],
-      summary: { // 서머리 영역 추가
-        height: 40,
-        position: 'bottom',
-        columnContent: {
-          amount: {
-            template: function(valueMap) {
-                return '합계 : ' + valueMap.sum;
+        ...
+        rowHeaders: [
+            'radio',
+            'rowNum'
+        ],
+        summary: {
+            height: 40,
+            position: 'bottom',
+            columnContent: {
+                amount: {
+                    template: function(valueMap) {
+                        return '합계 : ' + valueMap.sum;
+                    }
+                }
             }
-          }
         }
-      }
     });
 
 

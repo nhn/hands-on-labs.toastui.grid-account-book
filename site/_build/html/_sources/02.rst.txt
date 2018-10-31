@@ -7,14 +7,21 @@ npm으로 그리드 사용하기
 
 `노드 환경 <https://nodejs.org/ko/>`_ 에서 모듈로 그리드를 사용하는 방법을 익혀봅니다.
 
-1. ``npm`` 으로 그리드 최신 버전을 설치합니다.
+1. 실습을 위해 프로젝트 폴더로 이동합니다.
+
+.. code-block:: sh
+
+    cd demo
+
+
+2. ``npm`` 으로 그리드 최신 버전을 설치합니다.
 
 .. code-block:: sh
 
     npm install tui-grid
 
 
-2. 프로젝트 폴더 내 ``package.json`` 파일에 정상적으로 그리드가 추가되었는지 확인합니다.
+3. 프로젝트 폴더 내 ``package.json`` 파일에 정상적으로 그리드가 추가되었는지 확인합니다.
 
 .. code-block:: javascript
 

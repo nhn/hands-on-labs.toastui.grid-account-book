@@ -4,7 +4,8 @@
   "description": "NHN Forward 2018",
   "main": "./index.js",
   "scripts": {
-    "server": "webpack-dev-server"
+    "server": "webpack-dev-server",
+    "api": "cd ./src/server && node app.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "eslint": "^5.6.0",
     "eslint-config-tui": "^2.0.0",
     "eslint-loader": "^2.1.0",
+    "express": "^4.16.4",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.4.3",
     "webpack": "^4.19.1",

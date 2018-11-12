@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>8. 서버 연동 - 데이터 추가 &mdash; Dooray! Messenger Incoming Hook Sample 1.0 documentation</title>
+  <title>8. 서버 연동하기 (심화) &mdash; Dooray! Messenger Incoming Hook Sample 1.0 documentation</title>
   
 
   
@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="색인" href="genindex.html" />
     <link rel="search" title="검색" href="search.html" />
-    <link rel="next" title="9. 서버 연동 - 데이터 수정, 삭제" href="09.html" />
+    <link rel="next" title="9. 정리" href="wrap-up.html" />
     <link rel="prev" title="7. 서버 연동하기 (기본)" href="07.html" /> 
 
   
@@ -77,21 +77,21 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="01.html">1. 개요</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02.html">2. 그리드 맛보기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03.html">3. 가계부 레이아웃 만들기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04.html">4. 다양한 편집 모드 활성화하기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05.html">5. 지출 비용 서식 변경하기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06.html">6. 행 추가, 삭제 기능 만들기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02.html">2. TOAST UI Grid 설치 및 개발 서버 실행하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03.html">3. TOAST UI Grid 생성하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04.html">4. 가계부 레이아웃 만들기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05.html">5. 다양한 편집 모드 활성화하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06.html">6. 지출 비용 서식 변경하기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="07.html">7. 서버 연동하기 (기본)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">8. 서버 연동 - 데이터 추가</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">8. 서버 연동하기 (심화)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#net">8.1. Net 활성화하기</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">8.2. 서버 데이터 만들기</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">8.3. 응답 결과 처리하기</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">8.4. 결과 화면</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ui">8.2. UI 버튼 추가하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">8.3. 서버 요청하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">8.4. 응답 결과 처리하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">8.5. 결과 화면</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="09.html">9. 서버 연동 - 데이터 수정, 삭제</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wrap-up.html">10. 정리</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wrap-up.html">9. 정리</a></li>
 </ul>
 
             
@@ -137,7 +137,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>8. 서버 연동 - 데이터 추가</li>
+      <li>8. 서버 연동하기 (심화)</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -155,99 +155,73 @@
            <div itemprop="articleBody">
             
   <div class="section" id="id1">
-<h1>8. 서버 연동 - 데이터 추가<a class="headerlink" href="#id1" title="제목 주소">¶</a></h1>
-<p>Net을 사용하여 데이터를 추가(Create), 수정(update), 삭제(delete)할 때 그리드에서 <code class="docutils literal notranslate"><span class="pre">net</span></code> 인스턴스를 사용해야 합니다.
-<code class="docutils literal notranslate"><span class="pre">net</span></code> 인스턴스는 <code class="docutils literal notranslate"><span class="pre">grid.getAddOn</span></code> API로 가져올 수 있으며, <code class="docutils literal notranslate"><span class="pre">net.request</span></code> API에 처리하려는 동작을 구분하는 값을 파라미터로 넘겨 처리할 수 있습니다.</p>
+<h1>8. 서버 연동하기 (심화)<a class="headerlink" href="#id1" title="제목 주소">¶</a></h1>
+<p>Net을 사용하여 데이터를 추가(Create), 수정(Update), 삭제(Delete) 동작을 처리할 수 있습니다.
+이 세 가지 동작은 그리드의 <code class="docutils literal notranslate"><span class="pre">getAddOn</span></code> API가 반환한 <code class="docutils literal notranslate"><span class="pre">net</span></code> 인스턴스를 사용하여 처리되며, 이 <code class="docutils literal notranslate"><span class="pre">net</span></code> 인스턴스의 <a class="reference external" href="http://nhnent.github.io/tui.grid/latest/addon_net#request">request</a> API를 호출하여 서버와 통신합니다.</p>
+<p>이번 장에서는 <strong>데이터를 수정하는 동작(Update)</strong> 을 구현해봅니다.</p>
 <div class="section" id="net">
 <h2>8.1. Net 활성화하기<a class="headerlink" href="#net" title="제목 주소">¶</a></h2>
-<p>먼저, 데이터 추가 동작이 실행될 때 호출하는 서버 API 정보를 추가합니다.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// index.js</span>
-
-<span class="nx">grid</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;Net&#39;</span><span class="p">,</span> <span class="p">{</span>
+<p>먼저, 데이터를 수정한 후 호출하는 서버 API 정보를 추가합니다.
+읽기(<code class="docutils literal notranslate"><span class="pre">readData</span></code>) 동작을 처리했던 것과 같이 데이터값이 수정되었을 때 호출되는 API URL을 설정합니다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">grid</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;Net&#39;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="p">...</span>
+  <span class="nx">api</span><span class="o">:</span> <span class="p">{</span>
     <span class="p">...</span>
-    <span class="nx">api</span><span class="o">:</span> <span class="p">{</span>
-        <span class="p">...</span>
-        <span class="nx">createData</span><span class="o">:</span> <span class="s1">&#39;api/createData&#39;</span>
-    <span class="p">}</span>
+    <span class="nx">updateData</span><span class="o">:</span> <span class="s1">&#39;api/updateData&#39;</span>
+  <span class="p">}</span>
 <span class="p">});</span>
 </pre></div>
 </div>
-<p>앞에서 작성한 <code class="docutils literal notranslate"><span class="pre">addRow</span></code> 함수를 수정하여, 새로운 행이 추가될 때 서버를 호출할 수 있도록 다음 코드를 추가합니다.
-<code class="docutils literal notranslate"><span class="pre">net.request</span></code> 는 기본적으로 체크된 행만 처리하도록 되어있어, 현재 구현하려는 기능에서는 이 기본 옵션을 비활성화해야 합니다.
-아래와 같이 <code class="docutils literal notranslate"><span class="pre">checkedOnly:</span> <span class="pre">false</span></code> 옵션을 추가합니다.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// index.js</span>
+</div>
+<div class="section" id="ui">
+<h2>8.2. UI 버튼 추가하기<a class="headerlink" href="#ui" title="제목 주소">¶</a></h2>
+<p>버튼을 클릭하면 수정된 행을 가져와서 서버 API로 호출할 수 있도록 <code class="docutils literal notranslate"><span class="pre">src/index.html</span></code> 파일에 태그를 추가해봅니다.</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">button</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;sync&quot;</span><span class="p">&gt;</span>동기화<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">src/index.js</span></code> 파일로 돌아와 버튼에 클릭 이벤트를 바인딩하고 이벤트 발생 시 호출되는 핸들러 함수를 추가합니다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">syncServer</span><span class="p">()</span> <span class="p">{}</span>
 
-<span class="kd">var</span> <span class="nx">net</span><span class="p">;</span>
-
-<span class="p">...</span>
-
-<span class="kd">function</span> <span class="nx">addRow</span><span class="p">()</span> <span class="p">{</span>
-    <span class="p">...</span>
-    <span class="nx">net</span> <span class="o">=</span> <span class="nx">grid</span><span class="p">.</span><span class="nx">getAddOn</span><span class="p">(</span><span class="s1">&#39;Net&#39;</span><span class="p">);</span>
-
-    <span class="nx">net</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;createData&#39;</span><span class="p">,</span> <span class="p">{</span>
-        <span class="nx">checkedOnly</span><span class="o">:</span> <span class="kc">false</span>
-    <span class="p">});</span>
-<span class="p">}</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;sync&#39;</span><span class="p">).</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">syncServer</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id2">
-<h2>8.2. 서버 데이터 만들기<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
-<p>그리드에서 추가된 행 데이터를 서버로 요청하고 정상적으로 처리되었다는 가정 하에 서버 응답 데이터를 가공해봅니다.
-이 때 응답 데이터에는 <code class="docutils literal notranslate"><span class="pre">result</span></code>, <code class="docutils literal notranslate"><span class="pre">data</span></code> 속성 값을 필수로 가지고 있어야 하며 그 외 값은 선택적으로 추가할 수 있습니다.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// mock.js</span>
+<h2>8.3. 서버 요청하기<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
+<p>앞서 작성한 <code class="docutils literal notranslate"><span class="pre">syncServer</span></code> 이벤트 핸들러 함수를 완성해봅니다.
+다음과 <code class="docutils literal notranslate"><span class="pre">net.request</span></code> API를 호출하면 위에서 설정한 <code class="docutils literal notranslate"><span class="pre">updateData</span></code> 에 설정된 API URL을 호출하게 됩니다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">net</span><span class="p">;</span>
 
-<span class="p">...</span>
-
-<span class="nx">mockjax</span><span class="p">({</span>
-    <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;api/createData&#39;</span><span class="p">,</span>
-    <span class="nx">responseTime</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nx">response</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">responseData</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="nx">result</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">// 필수</span>
-            <span class="nx">data</span><span class="o">:</span> <span class="p">{},</span> <span class="c1">// 필수</span>
-            <span class="nx">modifyType</span><span class="o">:</span> <span class="s1">&#39;create&#39;</span> <span class="c1">// 선택</span>
-        <span class="p">};</span>
-
-        <span class="k">this</span><span class="p">.</span><span class="nx">responseText</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">responseData</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">});</span>
+<span class="kd">function</span> <span class="nx">syncServer</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">net</span> <span class="o">=</span> <span class="nx">grid</span><span class="p">.</span><span class="nx">getAddOn</span><span class="p">(</span><span class="s1">&#39;Net&#39;</span><span class="p">);</span>
+  <span class="nx">net</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;updateData&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">checkedOnly</span><span class="o">:</span> <span class="kc">false</span>
+  <span class="p">});</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id3">
-<h2>8.3. 응답 결과 처리하기<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
-<p>그리드에서는 <a class="reference external" href="https://github.com/nhnent/tui.grid/blob/master/docs/custom-event.md">커스텀 이벤트</a> 를 사용하여 이벤트를 등록할 수 있습니다.
-Net를 사용하는 경우 다음과 같은 이벤트를 사용할 수 있습니다.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">grid</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;beforeRequest&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// before sending a request</span>
-<span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// when receiving response regardless of success/fail</span>
-<span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;successResponse&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// when the result is true</span>
-<span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;failResponse&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// when the result is false</span>
-<span class="p">}).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;errorResponse&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// when an error occurred</span>
-<span class="p">});</span>
-</pre></div>
-</div>
+<h2>8.4. 응답 결과 처리하기<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
+<p>그리드에서는 <a class="reference external" href="https://github.com/nhnent/tui.grid/blob/master/docs/custom-event.md">커스텀 이벤트</a> 를 사용하여 어떤 동작의 결과를 처리할 수 있습니다.</p>
 <p>가계부 예제에서는 <code class="docutils literal notranslate"><span class="pre">response</span></code> 이벤트를 사용하여 서버에서 응답이 정상적으로 들어왔을 때 결과를 출력해봅니다.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="c1">// index.js</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">grid</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">,</span> <span class="nx">ev</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="p">{</span>
+    <span class="nx">result</span><span class="p">,</span>
+    <span class="nx">data</span>
+  <span class="p">}</span> <span class="o">=</span> <span class="nx">ev</span><span class="p">.</span><span class="nx">responseData</span><span class="p">;</span>
 
-<span class="nx">grid</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">responseData</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">responseData</span><span class="p">;</span>
-
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;modifyType: &#39;</span><span class="p">,</span> <span class="nx">responseData</span><span class="p">.</span><span class="nx">modifyType</span><span class="p">);</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;data: &#39;</span><span class="p">,</span> <span class="nx">responseData</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;result : &#39;</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;modifyType : &#39;</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
 <span class="p">});</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id5">
-<h2>8.4. 결과 화면<a class="headerlink" href="#id5" title="제목 주소">¶</a></h2>
+<h2>8.5. 결과 화면<a class="headerlink" href="#id5" title="제목 주소">¶</a></h2>
 <img alt="_images/step08.png" src="_images/step08.png" />
+<p>콘솔 실행 결과)</p>
+<img alt="_images/step08-2.png" src="_images/step08-2.png" />
 </div>
 </div>
 
@@ -259,7 +233,7 @@ Net를 사용하는 경우 다음과 같은 이벤트를 사용할 수 있습니
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="09.html" class="btn btn-neutral float-right" title="9. 서버 연동 - 데이터 수정, 삭제" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="wrap-up.html" class="btn btn-neutral float-right" title="9. 정리" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="07.html" class="btn btn-neutral" title="7. 서버 연동하기 (기본)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

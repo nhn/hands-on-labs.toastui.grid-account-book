@@ -1,59 +1,47 @@
 ##############################
-행 추가, 삭제 기능 만들기
+지출 비용 서식 변경하기
 ##############################
 
-지금까지 데이터를 출력하고 수정하는 작업을 처리해보았습니다.
-행을 추가하고 삭제하는 기능을 추가해봅니다.
+기본 레이아웃에 부가 정보들을 출력해줄 수 있도록 옵션을 추가해봅니다.
 
 
-버튼 추가하기
+옵션 설정하기
 ==============================
 
-클릭 이벤트가 발생하면 그리드 API를 호출할 수 있도록 ``index.html`` 파일에 버튼 엘리먼트를 추가해봅니다.
+다음과 같은 옵션을 설정할 수 있습니다.
 
-.. code-block:: html
-
-    <button id="add">추가</button>
-    <button id="remove">삭제</button>
-
-
-그리드 API 호출하기
-==============================
-
-클릭 이벤트 시 추가, 삭제에 대한 함수를 추가합니다.
-각 함수에서는 동작에 따라 그리드 API를 호출하여 행이 추가되거나 삭제될 수 있도록 처리해봅니다.
+* ``summary`` : 그리드 테이블에서 푸터(footer)에 위치하는 영역을 설정하며, 전체 행에 대한 연산(총합, 최댓값, 최솟값, 평균 등) 결과를 출력할 수 있습니다.
+* ``formatter`` : 초기에 설정된 데이터 값에 단위를 추가하거나 출력 형식을 변경할 수 있는 함수형 옵션입니다.
 
 .. code-block:: javascript
 
-    // 행 추가
-    function addRow() {
-        grid.appendRow([
-            {
-              date: '',
-              category1: '',
-              category2: '',
-              payment: '',
-              amount: ''
+    ...
+
+    const grid = new Grid({
+      ...
+      summary: {
+        height: 40,
+        position: 'bottom',
+        columnContent: {
+          amount: {
+            template(valueMap) {
+              return `합계 : ${valueMap.sum}`;
             }
-        ]);
-    }
-
-    // 체크된 행 삭제
-    function removeRow() {
-        var rowKeys = grid.getCheckedRowKeys();
-
-        if (rowKeys.length) {
-            grid.removeRow(rowKeys[0]);
+          }
         }
-    }
+      }
+    });
 
-
-위에서 추가한 버튼에 클릭 이벤트를 바인딩하기 위해 다음 코드를 ``index.js`` 파일에 추가합니다.
-
-.. code-block:: javascript
-
-    document.getElementById('add').addEventListener('click', addRow);
-    document.getElementById('remove').addEventListener('click', removeRow);
+    const columnData = [
+      ...
+      {
+        title: '금액',
+        ...
+        formatter(value) {
+          return `${value}원`;
+        }
+      }
+    ];
 
 
 

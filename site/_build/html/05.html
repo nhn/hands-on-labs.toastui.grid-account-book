@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>5. 지출 비용 서식 변경하기 &mdash; Dooray! Messenger Incoming Hook Sample 1.0 documentation</title>
+  <title>5. 다양한 편집 모드 활성화하기 &mdash; Dooray! Messenger Incoming Hook Sample 1.0 documentation</title>
   
 
   
@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="색인" href="genindex.html" />
     <link rel="search" title="검색" href="search.html" />
-    <link rel="next" title="6. 행 추가, 삭제 기능 만들기" href="06.html" />
-    <link rel="prev" title="4. 다양한 편집 모드 활성화하기" href="04.html" /> 
+    <link rel="next" title="6. 지출 비용 서식 변경하기" href="06.html" />
+    <link rel="prev" title="4. 가계부 레이아웃 만들기" href="04.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -77,19 +77,21 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="01.html">1. 개요</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02.html">2. 그리드 맛보기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03.html">3. 가계부 레이아웃 만들기</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04.html">4. 다양한 편집 모드 활성화하기</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">5. 지출 비용 서식 변경하기</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="02.html">2. TOAST UI Grid 설치 및 개발 서버 실행하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03.html">3. TOAST UI Grid 생성하기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04.html">4. 가계부 레이아웃 만들기</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. 다양한 편집 모드 활성화하기</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#id2">5.1. 옵션 설정하기</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">5.2. 결과 화면</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">5.2. 셀렉트 박스, 체크박스 데이터 수정하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">5.3. 편집 모드 방식 변경하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#toast-ui-datepicker">5.4. TOAST UI DatePicker 사용하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">5.5. 결과 화면</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="06.html">6. 행 추가, 삭제 기능 만들기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06.html">6. 지출 비용 서식 변경하기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="07.html">7. 서버 연동하기 (기본)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08.html">8. 서버 연동 - 데이터 추가</a></li>
-<li class="toctree-l1"><a class="reference internal" href="09.html">9. 서버 연동 - 데이터 수정, 삭제</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wrap-up.html">10. 정리</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08.html">8. 서버 연동하기 (심화)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wrap-up.html">9. 정리</a></li>
 </ul>
 
             
@@ -135,7 +137,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>5. 지출 비용 서식 변경하기</li>
+      <li>5. 다양한 편집 모드 활성화하기</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -153,45 +155,182 @@
            <div itemprop="articleBody">
             
   <div class="section" id="id1">
-<h1>5. 지출 비용 서식 변경하기<a class="headerlink" href="#id1" title="제목 주소">¶</a></h1>
-<p>기본 레이아웃에 부가 정보들을 출력해줄 수 있도록 옵션을 추가해봅니다. 다음 요소들을 추가해봅니다.
-그리드에서의 명칭 및 역할은 다음과 같습니다.</p>
+<h1>5. 다양한 편집 모드 활성화하기<a class="headerlink" href="#id1" title="제목 주소">¶</a></h1>
+<p>지금까지는 그리드에서 데이터를 출력하는 기능만 사용해보았습니다.
+가계부에서는 데이터를 수정할 수 있어야 하므로, 그리드에서 제공하는 <code class="docutils literal notranslate"><span class="pre">editOptions</span></code> 옵션을 사용해 다양한 편집 모드를 활성화해봅니다.</p>
+<p>각 카테고리에서 필요로 하는 편집 모드는 다음과 같습니다.</p>
 <ul class="simple">
-<li>메타 컬럼 : 각 행의 맨 앞에 위치하는 컬럼으로 체크박스, 라디오 버튼, 행 번호 등 실제 데이터와 관계 없는 요소들을 출력합니다.</li>
-<li>서머리 영역 : 그리드 테이블에서 푸터(footer)에 위치하는 영역이며, 전체 행에 대한 연산(총 합, 최대 값, 최소 값, 평균 등) 결과를 출력합니다.</li>
+<li>날짜 : 데이트 피커</li>
+<li>내역 : 셀렉트 박스</li>
+<li>비고 : 텍스트 인풋</li>
+<li>결제 방식 : 체크박스</li>
+<li>금액 : 텍스트 인풋</li>
+</ul>
+<p>이 외 다른 편집 모드를 추가하고 싶다면 아래 링크를 참고하여 추가합니다.</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/nhnent/tui.grid/blob/master/docs/input-types.md">https://github.com/nhnent/tui.grid/blob/master/docs/input-types.md</a></li>
 </ul>
 <div class="section" id="id2">
 <h2>5.1. 옵션 설정하기<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
-<p>다음과 같이 옵션을 설정해봅니다.</p>
-<ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">rowHeaders</span></code> : 메타 컬럼 추가</li>
-<li><code class="docutils literal notranslate"><span class="pre">summary</span></code> : 서머리 영역 추가</li>
-</ul>
+<p><code class="docutils literal notranslate"><span class="pre">columnData</span></code> 의 각 컬럼 정보에 해당하는 객체에 <code class="docutils literal notranslate"><span class="pre">editOptions</span></code> 옵션을 추가합니다.
+날짜 선택 컬럼의 경우 데이트 피커 컴포넌트를 활성화해야 하며, 추가로 <code class="docutils literal notranslate"><span class="pre">component</span></code> 옵션을 같이 설정해줍니다.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
 
-<span class="kd">var</span> <span class="nx">grid</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">tui</span><span class="p">.</span><span class="nx">Grid</span><span class="p">({</span>
-    <span class="p">...</span>
-    <span class="nx">rowHeaders</span><span class="o">:</span> <span class="p">[</span>
-        <span class="s1">&#39;radio&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;rowNum&#39;</span>
-    <span class="p">],</span>
-    <span class="nx">summary</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">height</span><span class="o">:</span> <span class="mi">40</span><span class="p">,</span>
-        <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;bottom&#39;</span><span class="p">,</span>
-        <span class="nx">columnContent</span><span class="o">:</span> <span class="p">{</span>
-            <span class="nx">amount</span><span class="o">:</span> <span class="p">{</span>
-                <span class="nx">template</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">valueMap</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="k">return</span> <span class="s1">&#39;합계 : &#39;</span> <span class="o">+</span> <span class="nx">valueMap</span><span class="p">.</span><span class="nx">sum</span><span class="p">;</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
+<span class="kr">const</span> <span class="nx">columnData</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;날짜&#39;</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span>
+    <span class="nx">editOptions</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;text&#39;</span>
+    <span class="p">},</span>
+    <span class="nx">component</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;datePicker&#39;</span><span class="p">,</span>
+      <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">format</span><span class="o">:</span> <span class="s1">&#39;yyyy-MM-dd&#39;</span>
+      <span class="p">}</span>
     <span class="p">}</span>
-<span class="p">});</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;내역&#39;</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;category1&#39;</span><span class="p">,</span>
+    <span class="nx">editOptions</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;select&#39;</span><span class="p">,</span>
+      <span class="nx">listItems</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;선택 안함&#39;</span><span class="p">,</span>
+          <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;0&#39;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;식비&#39;</span><span class="p">,</span>
+          <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;1&#39;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;문화 생활비&#39;</span><span class="p">,</span>
+          <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;2&#39;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;교통비&#39;</span><span class="p">,</span>
+          <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;3&#39;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;관리비&#39;</span><span class="p">,</span>
+          <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;4&#39;</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;비고&#39;</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;category2&#39;</span><span class="p">,</span>
+    <span class="nx">editOptions</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;text&#39;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;결제 방식&#39;</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;payment&#39;</span><span class="p">,</span>
+    <span class="nx">editOptions</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;checkbox&#39;</span><span class="p">,</span>
+      <span class="nx">listItems</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;현금&#39;</span><span class="p">,</span>
+          <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;1&#39;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;체크카드&#39;</span><span class="p">,</span>
+          <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;2&#39;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;신용카드&#39;</span><span class="p">,</span>
+          <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;3&#39;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;페이코&#39;</span><span class="p">,</span>
+          <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;4&#39;</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;금액&#39;</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;amount&#39;</span><span class="p">,</span>
+    <span class="nx">editOptions</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;text&#39;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">];</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id3">
-<h2>5.2. 결과 화면<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
+<h2>5.2. 셀렉트 박스, 체크박스 데이터 수정하기<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
+<p>텍스트 인풋을 제외한 다른 편집 타입의 경우 데이터 형식을 변경해야 합니다.</p>
+<p>예를 들어 체크박스를 사용하는 컬럼 데이터는, <code class="docutils literal notranslate"><span class="pre">editOptions.listItems</span></code> 에 설정된 각 리스트의 값(<code class="docutils literal notranslate"><span class="pre">value</span></code>) 중 하나와 일치해야 합니다.
+다음과 같이 변경해봅니다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
+
+<span class="kr">const</span> <span class="nx">rowData</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nx">date</span><span class="o">:</span> <span class="s1">&#39;2018-11-19&#39;</span><span class="p">,</span>
+    <span class="nx">category1</span><span class="o">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="c1">// &#39;식비&#39; -&gt; &#39;1&#39; 변경</span>
+    <span class="nx">category2</span><span class="o">:</span> <span class="s1">&#39;회사 편의점&#39;</span><span class="p">,</span>
+    <span class="nx">payment</span><span class="o">:</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="c1">// &#39;페이코&#39; -&gt; &#39;4 변경</span>
+    <span class="nx">amount</span><span class="o">:</span> <span class="s1">&#39;5000&#39;</span>
+  <span class="p">}</span>
+<span class="p">];</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>5.3. 편집 모드 방식 변경하기<a class="headerlink" href="#id4" title="제목 주소">¶</a></h2>
+<p>편집 모드를 추가한 다음 데이터를 편집하기 위해서는 셀을 더블 클릭합니다.
+이것이 기본 동작이며, 처음부터 셀에 편집 모드를 노출하고 싶다면 다음과 같이 각 컬럼의 <code class="docutils literal notranslate"><span class="pre">editOptions</span></code> 마다 <code class="docutils literal notranslate"><span class="pre">useViewMode:</span> <span class="pre">false</span></code> 로 뷰 모드를 비활성화해야 합니다.
+각자 사용 용도에 맞게 수정해봅니다.</p>
+<p>'내역', '결제 방식' 컬럼에 <code class="docutils literal notranslate"><span class="pre">useViewMode</span></code> 옵션을 추가해봅니다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
+
+<span class="kr">const</span> <span class="nx">columnData</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">...</span>
+  <span class="p">{</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;내역&#39;</span><span class="p">,</span>
+    <span class="p">...</span>
+    <span class="nx">editOptions</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;select&#39;</span><span class="p">,</span>
+      <span class="nx">useViewMode</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">// 추가</span>
+      <span class="p">...</span>
+  <span class="p">},</span>
+  <span class="p">...</span>
+  <span class="p">{</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;결제 방식&#39;</span><span class="p">,</span>
+    <span class="p">...</span>
+    <span class="nx">editOptions</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;checkbox&#39;</span><span class="p">,</span>
+      <span class="nx">useViewMode</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">// 추가</span>
+      <span class="p">...</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">...</span>
+<span class="p">];</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="toast-ui-datepicker">
+<h2>5.4. TOAST UI DatePicker 사용하기<a class="headerlink" href="#toast-ui-datepicker" title="제목 주소">¶</a></h2>
+<p>'날짜' 컬럼의 셀을 더블 클릭하면 다음과 같이 날짜 선택 레이어가 생성됩니다.
+그리드에서는 <a class="reference external" href="https://github.com/nhnent/tui.date-picker">TOAST UI DatePicker</a> 컴포넌트를 사용해 날짜 선택 기능을 제공합니다.
+해당 컴포넌트를 사용하기 위해서는 스타일을 추가해야 하며, 다음과 같이 파일 상단에서 그리드의 스타일을 가져오는 코드 아래에 데이트 피커의 스타일을 추가해줍니다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
+
+<span class="kr">import</span> <span class="s1">&#39;tui-grid/dist/tui-grid.css&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="s1">&#39;tui-date-picker/dist/tui-date-picker.css&#39;</span><span class="p">;</span> <span class="c1">// 데이트 피커 스타일 추가</span>
+
+<span class="kr">const</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="p">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>5.5. 결과 화면<a class="headerlink" href="#id6" title="제목 주소">¶</a></h2>
 <img alt="_images/step05.png" src="_images/step05.png" />
 </div>
 </div>
@@ -204,10 +343,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="06.html" class="btn btn-neutral float-right" title="6. 행 추가, 삭제 기능 만들기" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="06.html" class="btn btn-neutral float-right" title="6. 지출 비용 서식 변경하기" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="04.html" class="btn btn-neutral" title="4. 다양한 편집 모드 활성화하기" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="04.html" class="btn btn-neutral" title="4. 가계부 레이아웃 만들기" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

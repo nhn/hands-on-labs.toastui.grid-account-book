@@ -1,109 +1,84 @@
 ##############################
-서버 연동 - 데이터 추가
+서버 연동하기 (심화)
 ##############################
 
-Net을 사용하여 데이터를 추가(Create), 수정(update), 삭제(delete)할 때 그리드에서 ``net`` 인스턴스를 사용해야 합니다.
-``net`` 인스턴스는 ``grid.getAddOn`` API로 가져올 수 있으며, ``net.request`` API에 처리하려는 동작을 구분하는 값을 파라미터로 넘겨 처리할 수 있습니다.
+Net을 사용하여 데이터를 추가(Create), 수정(Update), 삭제(Delete) 동작을 처리할 수 있습니다.
+이 세 가지 동작은 그리드의 ``getAddOn`` API가 반환한 ``net`` 인스턴스를 사용하여 처리되며, 이 ``net`` 인스턴스의 `request <http://nhnent.github.io/tui.grid/latest/addon_net#request>`_ API를 호출하여 서버와 통신합니다.
+
+이번 장에서는 **데이터를 수정하는 동작(Update)** 을 구현해봅니다.
 
 
 Net 활성화하기
 ==============================
 
-먼저, 데이터 추가 동작이 실행될 때 호출하는 서버 API 정보를 추가합니다.
+먼저, 데이터를 수정한 후 호출하는 서버 API 정보를 추가합니다.
+읽기(``readData``) 동작을 처리했던 것과 같이 데이터값이 수정되었을 때 호출되는 API URL을 설정합니다.
 
 .. code-block:: javascript
-
-    // index.js
 
     grid.use('Net', {
+      ...
+      api: {
         ...
-        api: {
-            ...
-            createData: 'api/createData'
-        }
+        updateData: 'api/updateData'
+      }
     });
 
-앞에서 작성한 ``addRow`` 함수를 수정하여, 새로운 행이 추가될 때 서버를 호출할 수 있도록 다음 코드를 추가합니다.
-``net.request`` 는 기본적으로 체크된 행만 처리하도록 되어있어, 현재 구현하려는 기능에서는 이 기본 옵션을 비활성화해야 합니다.
-아래와 같이 ``checkedOnly: false`` 옵션을 추가합니다.
 
-.. code-block:: javascript
-
-    // index.js
-
-    var net;
-
-    ...
-
-    function addRow() {
-        ...
-        net = grid.getAddOn('Net');
-
-        net.request('createData', {
-            checkedOnly: false
-        });
-    }
-
-
-서버 데이터 만들기
+UI 버튼 추가하기
 ==============================
 
-그리드에서 추가된 행 데이터를 서버로 요청하고 정상적으로 처리되었다는 가정 하에 서버 응답 데이터를 가공해봅니다.
-이 때 응답 데이터에는 ``result``, ``data`` 속성 값을 필수로 가지고 있어야 하며 그 외 값은 선택적으로 추가할 수 있습니다.
+버튼을 클릭하면 수정된 행을 가져와서 서버 API로 호출할 수 있도록 ``src/index.html`` 파일에 태그를 추가해봅니다.
+
+.. code-block:: html
+
+    <button id="sync">동기화</button>
+
+
+``src/index.js`` 파일로 돌아와 버튼에 클릭 이벤트를 바인딩하고 이벤트 발생 시 호출되는 핸들러 함수를 추가합니다.
 
 .. code-block:: javascript
 
-    // mock.js
+    function syncServer() {}
 
-    ...
+    document.getElementById('sync').addEventListener('click', syncServer);
 
-    mockjax({
-        url: 'api/createData',
-        responseTime: 0,
-        response: function() {
-            var responseData = {
-                result: true, // 필수
-                data: {}, // 필수
-                modifyType: 'create' // 선택
-            };
 
-            this.responseText = JSON.stringify(responseData);
-        }
-    });
+서버 요청하기
+==============================
+
+앞서 작성한 ``syncServer`` 이벤트 핸들러 함수를 완성해봅니다.
+다음과 ``net.request`` API를 호출하면 위에서 설정한 ``updateData`` 에 설정된 API URL을 호출하게 됩니다.
+
+.. code-block:: javascript
+
+    let net;
+
+    function syncServer() {
+      net = grid.getAddOn('Net');
+      net.request('updateData', {
+        checkedOnly: false
+      });
+    }
 
 
 응답 결과 처리하기
 ==============================
 
-그리드에서는 `커스텀 이벤트 <https://github.com/nhnent/tui.grid/blob/master/docs/custom-event.md>`_ 를 사용하여 이벤트를 등록할 수 있습니다.
-Net를 사용하는 경우 다음과 같은 이벤트를 사용할 수 있습니다.
-
-.. code-block:: javascript
-
-    grid.on('beforeRequest', function(data) {
-        // before sending a request
-    }).on('response', function(data) {
-        // when receiving response regardless of success/fail
-    }).on('successResponse', function(data) {
-        // when the result is true
-    }).on('failResponse', function(data) {
-        // when the result is false
-    }).on('errorResponse', function(data) {
-        // when an error occurred
-    });
-
+그리드에서는 `커스텀 이벤트 <https://github.com/nhnent/tui.grid/blob/master/docs/custom-event.md>`_ 를 사용하여 어떤 동작의 결과를 처리할 수 있습니다.
 
 가계부 예제에서는 ``response`` 이벤트를 사용하여 서버에서 응답이 정상적으로 들어왔을 때 결과를 출력해봅니다.
 
 .. code-block:: javascript
 
-    // index.js
+    grid.on('response', ev => {
+      const {
+        result,
+        data
+      } = ev.responseData;
 
-    grid.on('response', function(response) {
-        var responseData = response.responseData;
-
-        console.log('modifyType: ', responseData.modifyType);
-        console.log('data: ', responseData.data);
+      console.log('result : ', result);
+      console.log('modifyType : ', data);
     });
 
 
@@ -111,3 +86,7 @@ Net를 사용하는 경우 다음과 같은 이벤트를 사용할 수 있습니
 ==============================
 
 .. image:: _static/step08.png
+
+콘솔 실행 결과)
+
+.. image:: _static/step08-2.png

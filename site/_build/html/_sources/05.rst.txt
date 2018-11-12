@@ -1,44 +1,196 @@
 ##############################
-지출 비용 서식 변경하기
+다양한 편집 모드 활성화하기
 ##############################
 
-기본 레이아웃에 부가 정보들을 출력해줄 수 있도록 옵션을 추가해봅니다. 다음 요소들을 추가해봅니다.
-그리드에서의 명칭 및 역할은 다음과 같습니다.
+지금까지는 그리드에서 데이터를 출력하는 기능만 사용해보았습니다.
+가계부에서는 데이터를 수정할 수 있어야 하므로, 그리드에서 제공하는 ``editOptions`` 옵션을 사용해 다양한 편집 모드를 활성화해봅니다.
 
-* 메타 컬럼 : 각 행의 맨 앞에 위치하는 컬럼으로 체크박스, 라디오 버튼, 행 번호 등 실제 데이터와 관계 없는 요소들을 출력합니다.
-* 서머리 영역 : 그리드 테이블에서 푸터(footer)에 위치하는 영역이며, 전체 행에 대한 연산(총 합, 최대 값, 최소 값, 평균 등) 결과를 출력합니다.
+각 카테고리에서 필요로 하는 편집 모드는 다음과 같습니다.
+
+* 날짜 : 데이트 피커
+* 내역 : 셀렉트 박스
+* 비고 : 텍스트 인풋
+* 결제 방식 : 체크박스
+* 금액 : 텍스트 인풋
+
+이 외 다른 편집 모드를 추가하고 싶다면 아래 링크를 참고하여 추가합니다.
+
+- https://github.com/nhnent/tui.grid/blob/master/docs/input-types.md
 
 
 옵션 설정하기
 ==============================
 
-다음과 같이 옵션을 설정해봅니다.
-
-* ``rowHeaders`` : 메타 컬럼 추가
-* ``summary`` : 서머리 영역 추가
+``columnData`` 의 각 컬럼 정보에 해당하는 객체에 ``editOptions`` 옵션을 추가합니다.
+날짜 선택 컬럼의 경우 데이트 피커 컴포넌트를 활성화해야 하며, 추가로 ``component`` 옵션을 같이 설정해줍니다.
 
 .. code-block:: javascript
 
     ...
 
-    var grid = new tui.Grid({
-        ...
-        rowHeaders: [
-            'radio',
-            'rowNum'
-        ],
-        summary: {
-            height: 40,
-            position: 'bottom',
-            columnContent: {
-                amount: {
-                    template: function(valueMap) {
-                        return '합계 : ' + valueMap.sum;
-                    }
-                }
-            }
+    const columnData = [
+      {
+        title: '날짜',
+        name: 'date',
+        editOptions: {
+          type: 'text'
+        },
+        component: {
+          name: 'datePicker',
+          options: {
+            format: 'yyyy-MM-dd'
+          }
         }
-    });
+      },
+      {
+        title: '내역',
+        name: 'category1',
+        editOptions: {
+          type: 'select',
+          listItems: [
+            {
+              text: '선택 안함',
+              value: '0'
+            },
+            {
+              text: '식비',
+              value: '1'
+            },
+            {
+              text: '문화 생활비',
+              value: '2'
+            },
+            {
+              text: '교통비',
+              value: '3'
+            },
+            {
+              text: '관리비',
+              value: '4'
+            }
+          ]
+        }
+      },
+      {
+        title: '비고',
+        name: 'category2',
+        editOptions: {
+          type: 'text'
+        }
+      },
+      {
+        title: '결제 방식',
+        name: 'payment',
+        editOptions: {
+          type: 'checkbox',
+          listItems: [
+            {
+              text: '현금',
+              value: '1'
+            },
+            {
+              text: '체크카드',
+              value: '2'
+            },
+            {
+              text: '신용카드',
+              value: '3'
+            },
+            {
+              text: '페이코',
+              value: '4'
+            }
+          ]
+        }
+      },
+      {
+        title: '금액',
+        name: 'amount',
+        editOptions: {
+          type: 'text'
+        }
+      }
+    ];
+
+
+셀렉트 박스, 체크박스 데이터 수정하기
+===========================================
+
+텍스트 인풋을 제외한 다른 편집 타입의 경우 데이터 형식을 변경해야 합니다.
+
+예를 들어 체크박스를 사용하는 컬럼 데이터는, ``editOptions.listItems`` 에 설정된 각 리스트의 값(``value``) 중 하나와 일치해야 합니다.
+다음과 같이 변경해봅니다.
+
+.. code-block:: javascript
+
+    ...
+
+    const rowData = [
+      {
+        date: '2018-11-19',
+        category1: '1', // '식비' -> '1' 변경
+        category2: '회사 편의점',
+        payment: '4', // '페이코' -> '4 변경
+        amount: '5000'
+      }
+    ];
+
+
+편집 모드 방식 변경하기
+==============================
+
+편집 모드를 추가한 다음 데이터를 편집하기 위해서는 셀을 더블 클릭합니다.
+이것이 기본 동작이며, 처음부터 셀에 편집 모드를 노출하고 싶다면 다음과 같이 각 컬럼의 ``editOptions`` 마다 ``useViewMode: false`` 로 뷰 모드를 비활성화해야 합니다.
+각자 사용 용도에 맞게 수정해봅니다.
+
+'내역', '결제 방식' 컬럼에 ``useViewMode`` 옵션을 추가해봅니다.
+
+.. code-block:: javascript
+
+    ...
+
+    const columnData = [
+      ...
+      {
+        title: '내역',
+        ...
+        editOptions: {
+          type: 'select',
+          useViewMode: false, // 추가
+          ...
+      },
+      ...
+      {
+        title: '결제 방식',
+        ...
+        editOptions: {
+          type: 'checkbox',
+          useViewMode: false, // 추가
+          ...
+        }
+      },
+      ...
+    ];
+
+
+
+TOAST UI DatePicker 사용하기
+==============================
+
+'날짜' 컬럼의 셀을 더블 클릭하면 다음과 같이 날짜 선택 레이어가 생성됩니다.
+그리드에서는 `TOAST UI DatePicker <https://github.com/nhnent/tui.date-picker>`_ 컴포넌트를 사용해 날짜 선택 기능을 제공합니다.
+해당 컴포넌트를 사용하기 위해서는 스타일을 추가해야 하며, 다음과 같이 파일 상단에서 그리드의 스타일을 가져오는 코드 아래에 데이트 피커의 스타일을 추가해줍니다.
+
+.. code-block:: javascript
+
+    ...
+
+    import 'tui-grid/dist/tui-grid.css';
+    import 'tui-date-picker/dist/tui-date-picker.css'; // 데이트 피커 스타일 추가
+
+    const options = {
+      ...
+
 
 
 결과 화면

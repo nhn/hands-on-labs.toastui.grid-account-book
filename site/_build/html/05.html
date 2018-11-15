@@ -81,11 +81,11 @@
 <li class="toctree-l1"><a class="reference internal" href="03.html">3. TOAST UI Grid 생성하기</a></li>
 <li class="toctree-l1"><a class="reference internal" href="04.html">4. 가계부 레이아웃 만들기</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">5. 다양한 편집 모드 활성화하기</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id2">5.1. 옵션 설정하기</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">5.2. 셀렉트 박스, 체크박스 데이터 수정하기</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">5.3. 편집 모드 방식 변경하기</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#toast-ui-datepicker">5.4. TOAST UI DatePicker 사용하기</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">5.5. 결과 화면</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">5.1. 텍스트 인풋 옵션 사용하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">5.2. 셀렉트 박스, 체크박스 인풋 옵션 사용하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#useviewmode">5.3. useViewMode 옵션 사용하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">5.4. 데이트 피커 컴포넌트 사용하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">5.5. 결과 화면</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="06.html">6. 지출 비용 서식 변경하기</a></li>
@@ -166,30 +166,49 @@
 <li>결제 방식 : 체크박스</li>
 <li>금액 : 텍스트 인풋</li>
 </ul>
-<p>이 외 다른 편집 모드를 추가하고 싶다면 아래 링크를 참고하여 추가합니다.</p>
-<ul class="simple">
-<li><a class="reference external" href="https://github.com/nhnent/tui.grid/blob/master/docs/input-types.md">https://github.com/nhnent/tui.grid/blob/master/docs/input-types.md</a></li>
-</ul>
+<p>카테고리별로 편집 모드를 적용해보겠습니다.
+<code class="docutils literal notranslate"><span class="pre">columnData</span></code> 의 각 카테고리 정보에 해당하는 객체에 <code class="docutils literal notranslate"><span class="pre">editOptions</span></code> 옵션을 순서대로 추가해봅니다.</p>
 <div class="section" id="id2">
-<h2>5.1. 옵션 설정하기<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">columnData</span></code> 의 각 컬럼 정보에 해당하는 객체에 <code class="docutils literal notranslate"><span class="pre">editOptions</span></code> 옵션을 추가합니다.
-날짜 선택 컬럼의 경우 데이트 피커 컴포넌트를 활성화해야 하며, 추가로 <code class="docutils literal notranslate"><span class="pre">component</span></code> 옵션을 같이 설정해줍니다.</p>
+<h2>5.1. 텍스트 인풋 옵션 사용하기<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
+<ul class="simple">
+<li>적용 컬럼 : '비고', '금액'</li>
+</ul>
+<p>가장 기본적인 인풋 타입으로, <code class="docutils literal notranslate"><span class="pre">editOptions</span></code> 의 타입 값을 텍스트로 지정(<code class="docutils literal notranslate"><span class="pre">type:</span> <span class="pre">'text'</span></code>)하면 됩니다.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
 
 <span class="kr">const</span> <span class="nx">columnData</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">...</span>
   <span class="p">{</span>
-    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;날짜&#39;</span><span class="p">,</span>
-    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;비고&#39;</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;category2&#39;</span><span class="p">,</span>
     <span class="nx">editOptions</span><span class="o">:</span> <span class="p">{</span>
       <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;text&#39;</span>
-    <span class="p">},</span>
-    <span class="nx">component</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;datePicker&#39;</span><span class="p">,</span>
-      <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">format</span><span class="o">:</span> <span class="s1">&#39;yyyy-MM-dd&#39;</span>
-      <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">},</span>
+  <span class="p">...</span>
+  <span class="p">{</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;금액&#39;</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;amount&#39;</span><span class="p">,</span>
+    <span class="nx">editOptions</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;text&#39;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">];</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>5.2. 셀렉트 박스, 체크박스 인풋 옵션 사용하기<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
+<ul class="simple">
+<li>적용 컬럼 : '내역', '결제 방식'</li>
+</ul>
+<p>데이터가 될 값을 여러 개의 값 중에서 선택하려고 할 때 사용합니다.
+텍스트 인풋처럼 타입을 지정해주면 됩니다.
+셀렉트 박스의 타입은 <code class="docutils literal notranslate"><span class="pre">'select'</span></code> , 체크박스의 타입은 <code class="docutils literal notranslate"><span class="pre">'checkbox'</span></code> 입니다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
+
+<span class="kr">const</span> <span class="nx">columnData</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">...</span>
   <span class="p">{</span>
     <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;내역&#39;</span><span class="p">,</span>
     <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;category1&#39;</span><span class="p">,</span>
@@ -219,13 +238,7 @@
       <span class="p">]</span>
     <span class="p">}</span>
   <span class="p">},</span>
-  <span class="p">{</span>
-    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;비고&#39;</span><span class="p">,</span>
-    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;category2&#39;</span><span class="p">,</span>
-    <span class="nx">editOptions</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;text&#39;</span>
-    <span class="p">}</span>
-  <span class="p">},</span>
+  <span class="p">...</span>
   <span class="p">{</span>
     <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;결제 방식&#39;</span><span class="p">,</span>
     <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;payment&#39;</span><span class="p">,</span>
@@ -251,22 +264,14 @@
       <span class="p">]</span>
     <span class="p">}</span>
   <span class="p">},</span>
-  <span class="p">{</span>
-    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;금액&#39;</span><span class="p">,</span>
-    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;amount&#39;</span><span class="p">,</span>
-    <span class="nx">editOptions</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;text&#39;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
+  <span class="p">...</span>
 <span class="p">];</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id3">
-<h2>5.2. 셀렉트 박스, 체크박스 데이터 수정하기<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
-<p>텍스트 인풋을 제외한 다른 편집 타입의 경우 데이터 형식을 변경해야 합니다.</p>
+<p>이때 주의할 사항이 있습니다.
+텍스트 인풋을 제외한 다른 편집 타입의 경우 데이터 형식을 변경해야 합니다.</p>
 <p>예를 들어 체크박스를 사용하는 컬럼 데이터는, <code class="docutils literal notranslate"><span class="pre">editOptions.listItems</span></code> 에 설정된 각 리스트의 값(<code class="docutils literal notranslate"><span class="pre">value</span></code>) 중 하나와 일치해야 합니다.
-다음과 같이 변경해봅니다.</p>
+다음과 같이 데이터를 변경해봅니다.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
 
 <span class="kr">const</span> <span class="nx">rowData</span> <span class="o">=</span> <span class="p">[</span>
@@ -281,12 +286,14 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id4">
-<h2>5.3. 편집 모드 방식 변경하기<a class="headerlink" href="#id4" title="제목 주소">¶</a></h2>
-<p>편집 모드를 추가한 다음 데이터를 편집하기 위해서는 셀을 더블 클릭합니다.
-이것이 기본 동작이며, 처음부터 셀에 편집 모드를 노출하고 싶다면 다음과 같이 각 컬럼의 <code class="docutils literal notranslate"><span class="pre">editOptions</span></code> 마다 <code class="docutils literal notranslate"><span class="pre">useViewMode:</span> <span class="pre">false</span></code> 로 뷰 모드를 비활성화해야 합니다.
-각자 사용 용도에 맞게 수정해봅니다.</p>
-<p>'내역', '결제 방식' 컬럼에 <code class="docutils literal notranslate"><span class="pre">useViewMode</span></code> 옵션을 추가해봅니다.</p>
+<div class="section" id="useviewmode">
+<h2>5.3. useViewMode 옵션 사용하기<a class="headerlink" href="#useviewmode" title="제목 주소">¶</a></h2>
+<ul class="simple">
+<li>적용 컬럼 : '내역', '결제 방식'</li>
+</ul>
+<p>편집 모드를 추가한 다음 데이터를 편집하기 위해서는 셀을 더블클릭합니다.
+이것이 기본 동작이며, 처음부터 셀에 편집 모드를 노출하고 싶다면 다음과 같이 각 <code class="docutils literal notranslate"><span class="pre">editOptions</span></code> 마다 <code class="docutils literal notranslate"><span class="pre">useViewMode:</span> <span class="pre">false</span></code> 로 뷰 모드를 비활성화해야 합니다.
+사용 용도에 맞게 수정해봅니다.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
 
 <span class="kr">const</span> <span class="nx">columnData</span> <span class="o">=</span> <span class="p">[</span>
@@ -314,11 +321,36 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="toast-ui-datepicker">
-<h2>5.4. TOAST UI DatePicker 사용하기<a class="headerlink" href="#toast-ui-datepicker" title="제목 주소">¶</a></h2>
-<p>'날짜' 컬럼의 셀을 더블 클릭하면 다음과 같이 날짜 선택 레이어가 생성됩니다.
-그리드에서는 <a class="reference external" href="https://github.com/nhnent/tui.date-picker">TOAST UI DatePicker</a> 컴포넌트를 사용해 날짜 선택 기능을 제공합니다.
-해당 컴포넌트를 사용하기 위해서는 스타일을 추가해야 하며, 다음과 같이 파일 상단에서 그리드의 스타일을 가져오는 코드 아래에 데이트 피커의 스타일을 추가해줍니다.</p>
+<div class="section" id="id4">
+<h2>5.4. 데이트 피커 컴포넌트 사용하기<a class="headerlink" href="#id4" title="제목 주소">¶</a></h2>
+<ul class="simple">
+<li>적용 컬럼 : '날짜'</li>
+</ul>
+<p>텍스트 인풋을 사용하면서 텍스트 인풋이 선택되었을 때 레이어를 띄워 날짜를 선택할 수 있도록 변경해보겠습니다.</p>
+<p>그리드에서는 <a class="reference external" href="https://github.com/nhnent/tui.date-picker">TOAST UI DatePicker</a> 컴포넌트를 사용하여 날짜를 선택할 수 있는 기능을 제공합니다.
+<code class="docutils literal notranslate"><span class="pre">editOptions</span></code> 옵션과 함께 <code class="docutils literal notranslate"><span class="pre">component</span></code> 옵션을 추가로 설정하면 됩니다.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
+
+<span class="kr">const</span> <span class="nx">columnData</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;날짜&#39;</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span>
+    <span class="nx">editOptions</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;text&#39;</span>
+    <span class="p">},</span>
+    <span class="nx">component</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;datePicker&#39;</span><span class="p">,</span>
+      <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">format</span><span class="o">:</span> <span class="s1">&#39;yyyy-MM-dd&#39;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">...</span>
+<span class="p">];</span>
+</pre></div>
+</div>
+<p>또한 컴포넌트를 사용하기 위해서는 반드시 스타일을 추가해야 합니다.
+다음과 같이 파일 상단에서 그리드의 스타일을 가져오는 코드 아래에 데이트 피커의 스타일을 추가해줍니다.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
 
 <span class="kr">import</span> <span class="s1">&#39;tui-grid/dist/tui-grid.css&#39;</span><span class="p">;</span>
@@ -326,11 +358,16 @@
 
 <span class="kr">const</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span>
   <span class="p">...</span>
+  <span class="p">...</span>
 </pre></div>
 </div>
+<p>이 외 다른 편집 모드를 추가하고 싶다면 아래 링크를 참고하여 추가해봅니다.</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/nhnent/tui.grid/blob/master/docs/input-types.md">https://github.com/nhnent/tui.grid/blob/master/docs/input-types.md</a></li>
+</ul>
 </div>
-<div class="section" id="id6">
-<h2>5.5. 결과 화면<a class="headerlink" href="#id6" title="제목 주소">¶</a></h2>
+<div class="section" id="id5">
+<h2>5.5. 결과 화면<a class="headerlink" href="#id5" title="제목 주소">¶</a></h2>
 <img alt="_images/step05.png" src="_images/step05.png" />
 </div>
 </div>

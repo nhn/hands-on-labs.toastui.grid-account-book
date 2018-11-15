@@ -40,8 +40,8 @@
 
     const grid = new Grid({
       el: document.getElementById('grid'),
-      data: [],
-      columns: columnData
+      columns: columnData,
+      data: []
     });
 
 
@@ -67,8 +67,8 @@
 
     const grid = new Grid({
       el: document.getElementById('grid'),
-      data: rowData, // 변경
-      columns: columnData
+      columns: columnData,
+      data: rowData // 변경
     });
 
 

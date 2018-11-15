@@ -201,7 +201,9 @@ API 서버 URL은 <code class="docutils literal notranslate"><span class="pre">h
 </div>
 <div class="section" id="id3">
 <h2>7.3. 서버 요청 &amp; 응답 확인하기<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
-<p>이제 서버에서 데이터를 가져오므로 그리드 생성 시 사용된 로컬 데이터(<code class="docutils literal notranslate"><span class="pre">data</span></code> 옵션)를 제거합니다.</p>
+<p>Net을 활성화하고 페이지를 로드하면 <cite>api.readData</cite> 옵션에 설정된 API를 호출하게 됩니다.
+정상적으로 요청이 일어난 다음 그리드 내부에서는 로컬 데이터 대신 API의 응답 데이터를 사용하도록 처리됩니다.</p>
+<p>이제 서버 데이터를 사용하므로, <code class="docutils literal notranslate"><span class="pre">data</span></code> 옵션으로 초기화하던 로컬 데이터에 대한 코드를 제거합니다.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">rowData</span> <span class="o">=</span> <span class="p">[</span> <span class="p">...</span> <span class="p">];</span> <span class="c1">// 제거</span>
 
 <span class="kr">const</span> <span class="nx">grid</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Grid</span><span class="p">({</span>

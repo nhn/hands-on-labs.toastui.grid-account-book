@@ -25,7 +25,7 @@
         columnContent: {
           amount: {
             template(valueMap) {
-              return `합계 : ${valueMap.sum}`;
+              return `합계 : ${valueMap.sum}원`;
             }
           }
         }

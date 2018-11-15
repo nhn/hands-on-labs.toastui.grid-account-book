@@ -190,10 +190,9 @@
 <h2>8.3. 서버 요청하기<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
 <p>앞서 작성한 <code class="docutils literal notranslate"><span class="pre">syncServer</span></code> 이벤트 핸들러 함수를 완성해봅니다.
 다음과 <code class="docutils literal notranslate"><span class="pre">net.request</span></code> API를 호출하면 위에서 설정한 <code class="docutils literal notranslate"><span class="pre">updateData</span></code> 에 설정된 API URL을 호출하게 됩니다.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">net</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">syncServer</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">net</span> <span class="o">=</span> <span class="nx">grid</span><span class="p">.</span><span class="nx">getAddOn</span><span class="p">(</span><span class="s1">&#39;Net&#39;</span><span class="p">);</span>
 
-<span class="kd">function</span> <span class="nx">syncServer</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">net</span> <span class="o">=</span> <span class="nx">grid</span><span class="p">.</span><span class="nx">getAddOn</span><span class="p">(</span><span class="s1">&#39;Net&#39;</span><span class="p">);</span>
   <span class="nx">net</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;updateData&#39;</span><span class="p">,</span> <span class="p">{</span>
     <span class="nx">checkedOnly</span><span class="o">:</span> <span class="kc">false</span>
   <span class="p">});</span>
@@ -207,21 +206,21 @@
 <p>가계부 예제에서는 <code class="docutils literal notranslate"><span class="pre">response</span></code> 이벤트를 사용하여 서버에서 응답이 정상적으로 들어왔을 때 결과를 출력해봅니다.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">grid</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">,</span> <span class="nx">ev</span> <span class="p">=&gt;</span> <span class="p">{</span>
   <span class="kr">const</span> <span class="p">{</span>
-    <span class="nx">result</span><span class="p">,</span>
-    <span class="nx">data</span>
-  <span class="p">}</span> <span class="o">=</span> <span class="nx">ev</span><span class="p">.</span><span class="nx">responseData</span><span class="p">;</span>
+    <span class="nx">responseData</span><span class="p">,</span>
+    <span class="nx">requestType</span>
+  <span class="p">}</span> <span class="o">=</span> <span class="nx">ev</span><span class="p">;</span>
 
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;result : &#39;</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;modifyType : &#39;</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;result : &#39;</span><span class="p">,</span> <span class="nx">responseData</span><span class="p">.</span><span class="nx">result</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;requestType : &#39;</span><span class="p">,</span> <span class="nx">requestType</span><span class="p">);</span>
 <span class="p">});</span>
 </pre></div>
 </div>
+<p>그리드에서 데이터를 변경한 다음 '동기화' 버튼을 클릭해 서버 데이터를 업데이트합니다.
+브라우저를 리프레시하면 변경된 데이터가 출력되는 것을 확인할 수 있습니다.</p>
 </div>
 <div class="section" id="id5">
 <h2>8.5. 결과 화면<a class="headerlink" href="#id5" title="제목 주소">¶</a></h2>
 <img alt="_images/step08.png" src="_images/step08.png" />
-<p>콘솔 실행 결과)</p>
-<img alt="_images/step08-2.png" src="_images/step08-2.png" />
 </div>
 </div>
 

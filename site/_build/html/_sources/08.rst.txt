@@ -20,7 +20,7 @@ Net 활성화하기
       ...
       api: {
         ...
-        updateData: 'api/updateData'
+        updateData: 'http://localhost:3000/api/updateData'
       }
     });
 

@@ -4,7 +4,7 @@ TOAST UI Grid로 가계부 만들기
 
 * 카테고리: JavaScript
 * 레벨: 초급
-* 시간: 30분
+* 시간: 20분
 
 
 .. toctree::

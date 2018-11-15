@@ -34,4 +34,4 @@ TOAST UI Grid는 `npm <https://www.npmjs.com/>`_ 으로 제공됩니다.
 
 .. code-block:: shell
 
-  npm run server
+  npm run serve

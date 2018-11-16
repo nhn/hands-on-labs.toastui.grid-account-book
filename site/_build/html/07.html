@@ -156,10 +156,10 @@
   <div class="section" id="id1">
 <h1>7. 서버 연동하기 (기본)<a class="headerlink" href="#id1" title="제목 주소">¶</a></h1>
 <p>지금까지 로컬 데이터를 가져와 그리드를 생성하고 사용해 보았습니다.
-서버 연동 과정을 직접 구현할 수도 있지만, 그리드에서 제공하는 모듈을 사용해 좀 더 편리하게 서버 연동을 처리할 수 있습니다.</p>
+API를 직접 호출하여 서버 연동 과정을 구현할 수도 있지만, 그리드에서 제공하는 모듈을 사용해 좀 더 편리하게 서버 연동을 처리할 수 있습니다.</p>
 <div class="section" id="api">
 <h2>7.1. 테스트용 API 서버 설정하기<a class="headerlink" href="#api" title="제목 주소">¶</a></h2>
-<p>지금부터는 서버 API를 호출해 그리드 데이터를 가져오는 작업을 처리해야 합니다.
+<p>지금부터는 외부 API를 호출해 그리드 데이터를 가져오는 작업을 처리해보겠습니다.
 API를 호출할 수 있도록 로컬에서 서버를 실행해봅니다.
 이 API 서버는 <a class="reference external" href="http://expressjs.com/">express</a> 를 사용합니다.</p>
 <p>터미널을 새로 열고 개발 서버를 실행했던 것과 같이 프로젝트 폴더 위치에서 다음 명령어를 실행합니다.</p>
@@ -201,9 +201,9 @@ API 서버 URL은 <code class="docutils literal notranslate"><span class="pre">h
 </div>
 <div class="section" id="id3">
 <h2>7.3. 서버 요청 &amp; 응답 확인하기<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
-<p>Net을 활성화하고 페이지를 로드하면 <cite>api.readData</cite> 옵션에 설정된 API를 호출하게 됩니다.
+<p>Net을 활성화하고 페이지를 로드하면 <code class="docutils literal notranslate"><span class="pre">api.readData</span></code> 옵션에 설정된 API를 호출합니다.
 정상적으로 요청이 일어난 다음 그리드 내부에서는 로컬 데이터 대신 API의 응답 데이터를 사용하도록 처리됩니다.</p>
-<p>이제 서버 데이터를 사용하므로, <code class="docutils literal notranslate"><span class="pre">data</span></code> 옵션으로 초기화하던 로컬 데이터에 대한 코드를 제거합니다.</p>
+<p>이제 서버측 데이터를 사용하므로, <code class="docutils literal notranslate"><span class="pre">data</span></code> 옵션으로 초기화하던 로컬 데이터에 대한 코드를 제거합니다.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">rowData</span> <span class="o">=</span> <span class="p">[</span> <span class="p">...</span> <span class="p">];</span> <span class="c1">// 제거</span>
 
 <span class="kr">const</span> <span class="nx">grid</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Grid</span><span class="p">({</span>

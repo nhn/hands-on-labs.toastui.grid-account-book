@@ -16,5 +16,6 @@
 다음 단계
 =================
 
-* TOAST UI를 널리 널리 홍보합니다.
-* 서비스 페이지에서 TOAST UI를 사용해봅니다.
+* TOAST UI Editor 유튜브 익스텐션 개발하기
+* TOAST UI Calendar로 시간표 만들기
+* TOAST UI Chart를 사용해 차트 대시보드 만들기

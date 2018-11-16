@@ -219,7 +219,6 @@ useViewMode 옵션 사용하기
 
     ...
 
-    import 'tui-grid/dist/tui-grid.css';
     import 'tui-date-picker/dist/tui-date-picker.css'; // 데이트 피커 스타일 추가
 
     const options = {

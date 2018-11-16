@@ -8,10 +8,30 @@
 옵션 설정하기
 ==============================
 
-다음과 같은 옵션을 설정할 수 있습니다.
+다음과 같은 옵션을 설정할 수 있으며 코드를 수정해봅니다.
+
+* ``formatter`` : 초기에 설정된 데이터 값에 단위를 추가하거나 출력 형식을 변경할 수 있는 함수형 옵션입니다.
+
+.. code-block:: javascript
+
+    ...
+
+    const columnData = [
+      ...
+      {
+        title: '금액',
+        name: 'amount',
+        editOptions: {
+          type: 'text'
+        },
+        formatter(value) { // 추가
+          return `${value}원`;
+        }
+      }
+    ];
+
 
 * ``summary`` : 그리드 테이블에서 푸터(footer)에 위치하는 영역을 설정하며, 전체 행에 대한 연산(총합, 최댓값, 최솟값, 평균 등) 결과를 출력할 수 있습니다.
-* ``formatter`` : 초기에 설정된 데이터 값에 단위를 추가하거나 출력 형식을 변경할 수 있는 함수형 옵션입니다.
 
 .. code-block:: javascript
 
@@ -19,7 +39,8 @@
 
     const grid = new Grid({
       ...
-      summary: {
+      data: rowData,
+      summary: { // 추가
         height: 40,
         position: 'bottom',
         columnContent: {
@@ -31,19 +52,6 @@
         }
       }
     });
-
-    const columnData = [
-      ...
-      {
-        title: '금액',
-        ...
-        formatter(value) {
-          return `${value}원`;
-        }
-      }
-    ];
-
-
 
 결과 화면
 ==============================

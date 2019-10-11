@@ -26,37 +26,40 @@ API 서버 URL은 ``http://localhost:3000/`` 으로 호출됩니다.
 .. image:: _static/step07-1.png
 
 
-Net 활성화하기
+DataSource 사용하기
 ==============================
 
-`Net <http://nhnent.github.io/tui.grid/latest/addon_net>`_ 은 그리드에서 서버와 연동하여 데이터를 처리할 수 있도록 도와주는 모듈입니다.
-그리드의 ``use`` API를 사용하여 해당 모듈을 활성화하며, CRUD 동작을 처리하기 위해 옵션들을 설정할 수 있습니다.
+``DataSource`` 는 그리드에서 서버와 연동하여 데이터를 처리할 수 있도록 도와주는 듈입니다.
+그리드의 ``data`` 옵션 설정을 통해 해당 모듈을 활성화하며, CRUD 동작을 처리하기 위해 옵션들을 설정할 수 있습니다.
 
-- 참고 : https://github.com/nhnent/tui.grid/blob/master/docs/binding-to-remote-data.md
+- 참고 : https://github.com/nhn/tui.grid/blob/master/docs/ko/data-source.md
 
-먼저, Net을 활성화하고 **데이터를 읽어오는 동작(Read)** 을 구현해봅니다.
+먼저, DataSource를 활성화하고 **데이터를 읽어오는 동작(Read)** 을 구현해봅니다.
 
 * 옵션 정보
-    * ``api`` : 호출할 API의 URL을 설정합니다.
-    * ``readDataMethod`` : API 호출 방식(GET 또는 POST)을 결정합니다.
+    * ``api`` : 호출할 API의 URL과 Method를 설정합니다.
 
 .. code-block:: javascript
 
-    grid.use('Net', {
+    const dataSource = {
       api: {
-        readData: 'http://localhost:3000/api/readData'
-      },
-      readDataMethod: 'POST'
-    });
+        readData: {
+          url: 'http://localhost:3000/api/readData',
+          method: 'GET'
+        }
+      }
+    };
 
 
 서버 요청 & 응답 확인하기
 ==============================
 
-Net을 활성화하고 페이지를 로드하면 ``api.readData`` 옵션에 설정된 API를 호출합니다.
+설정한 DataSource를 그리드 내에서 활성화하는 방법은 아주 간단합니다.
+``data`` 옵션으로 초기화하던 로컬 데이터만 dataSource로 변경하면 됩니다.
+페이지를 로드하면 ``api.readData`` 옵션에 설정된 API를 호출합니다.
 정상적으로 요청이 일어난 다음 그리드 내부에서는 로컬 데이터 대신 API의 응답 데이터를 사용하도록 처리됩니다.
 
-이제 서버측 데이터를 사용하므로, ``data`` 옵션으로 초기화하던 로컬 데이터에 대한 코드를 제거합니다.
+이제 서버측 데이터를 사용하므로, ``data`` 옵션으로 초기화하던 로컬 데이터에 대한 코드를 변경합니다.
 
 .. code-block:: javascript
 
@@ -64,7 +67,7 @@ Net을 활성화하고 페이지를 로드하면 ``api.readData`` 옵션에 설�
 
     const grid = new Grid({
       ...
-      data: rowData, // 제거
+      data: dataSource, // 변경
       ...
     });
 

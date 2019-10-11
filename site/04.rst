@@ -19,23 +19,23 @@
 
     const columnData = [
       {
-        title: '날짜',
+        header: '날짜',
         name: 'date'
       },
       {
-        title: '내역',
+        header: '내역',
         name: 'category1'
       },
       {
-        title: '비고',
+        header: '비고',
         name: 'category2'
       },
       {
-        title: '결제 방식',
+        header: '결제 방식',
         name: 'payment'
       },
       {
-        title: '금액',
+        header: '금액',
         name: 'amount'
       }
     ];
@@ -59,7 +59,7 @@
 
     const rowData = [
       {
-        date: '2018-11-19',
+        date: '2019-11-27',
         category1: '식비',
         category2: '회사 편의점',
         payment: '페이코',

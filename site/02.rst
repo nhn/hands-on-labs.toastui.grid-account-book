@@ -1,5 +1,5 @@
 ############################################
-TOAST UI Grid 설치 및 개발 서버 실행하기
+TOAST UI Grid 설치 및 서버 실행하기
 ############################################
 
 프로젝트 설치
@@ -9,7 +9,7 @@ TOAST UI Grid 설치 및 개발 서버 실행하기
 
 .. code-block:: shell
 
-  git clone https://github.com/nhnent/hands-on-labs.toastui.grid-account-book
+  git clone https://github.com/nhn/hands-on-labs.toastui.grid-account-book
 
 
 TOAST UI Grid 설치

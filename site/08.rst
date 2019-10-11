@@ -2,13 +2,13 @@
 서버 연동하기 (심화)
 ##############################
 
-Net을 사용하여 데이터를 추가(Create), 수정(Update), 삭제(Delete) 동작을 처리할 수 있습니다.
-이 세 가지 동작은 그리드의 ``getAddOn`` API가 반환한 ``net`` 인스턴스를 사용하여 처리되며, 이 ``net`` 인스턴스의 `request <http://nhnent.github.io/tui.grid/latest/addon_net#request>`_ API를 호출하여 서버와 통신합니다.
+DataSource를 사용하여 데이터를 추가(Create), 수정(Update), 삭제(Delete) 동작을 처리할 수 있습니다.
+이 세 가지 동작은 데이터를 읽어올 때와 동일하게 DataSource의 ``api`` 옵션에 설정하여 사용할 수 있습니다.
 
 이번 장에서는 **데이터를 수정하는 동작(Update)** 을 구현해봅니다.
 
 
-Net 활성화하기
+Udate API 추가하기
 ==============================
 
 먼저, 데이터를 수정한 후 호출하는 서버 API 정보를 추가합니다.
@@ -16,14 +16,18 @@ Net 활성화하기
 
 .. code-block:: javascript
 
-    grid.use('Net', {
-      ...
+    const dataSource = {
       api: {
-        ...
-        updateData: 'http://localhost:3000/api/updateData'
+        readData: {
+          url: 'http://localhost:3000/api/readData',
+          method: 'GET'
+        },
+        updateData: {
+          url: 'http://localhost:3000/api/updateData',
+          method: 'PUT'
+        }
       }
-    });
-
+    };
 
 UI 버튼 추가하기
 ==============================
@@ -48,14 +52,12 @@ UI 버튼 추가하기
 ==============================
 
 앞서 작성한 ``syncServer`` 이벤트 핸들러 함수를 완성해봅니다.
-다음과 ``net.request`` API를 호출하면 위에서 설정한 ``updateData`` 에 설정된 API URL을 호출하게 됩니다.
+다음과 ``grid.request`` API를 호출하면 위에서 설정한 ``updateData`` 에 설정된 API URL을 호출하게 됩니다.
 
 .. code-block:: javascript
 
     function syncServer() {
-      const net = grid.getAddOn('Net');
-
-      net.request('updateData', {
+      grid.request('updateData', {
         checkedOnly: false
       });
     }
@@ -64,27 +66,28 @@ UI 버튼 추가하기
 응답 결과 처리하기
 ==============================
 
-그리드에서는 `커스텀 이벤트 <https://github.com/nhnent/tui.grid/blob/master/docs/custom-event.md>`_ 를 사용하여 어떤 동작의 결과를 처리할 수 있습니다.
+그리드에서는 `커스텀 이벤트 <https://github.com/nhn/tui.grid/blob/master/docs/ko/custom-event.md>`_ 를 사용하여 어떤 동작의 결과를 처리할 수 있습니다.
 가계부 예제에서는 ``response`` 이벤트를 사용하여 서버에서 온 응답 결과를 출력할 수 있도록 처리해봅니다.
 
 .. code-block:: javascript
 
     grid.on('response', ev => {
-      const {
-        responseData,
-        requestType
-      } = ev;
+      const {response} = ev.xhr;
+      const responseObj = JSON.parse(response);
 
-      console.log('result : ', responseData.result);
-      console.log('requestType : ', requestType);
+      console.log('result : ', responseObj.result);
+      console.log('data : ', responseObj.data);
     });
 
 
 그리드에서 데이터를 변경한 다음 '동기화' 버튼을 클릭해 서버 데이터를 업데이트합니다.
+
+.. image:: _static/step08-1.png
+
 브라우저를 리프레시하면 변경된 데이터가 출력되는 것을 확인할 수 있습니다.
 
 
 결과 화면
 ==============================
 
-.. image:: _static/step08.png
+.. image:: _static/step08-2.png

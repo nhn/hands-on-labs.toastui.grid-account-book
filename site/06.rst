@@ -19,12 +19,10 @@
     const columnData = [
       ...
       {
-        title: '금액',
+        header: '금액',
         name: 'amount',
-        editOptions: {
-          type: 'text'
-        },
-        formatter(value) { // 추가
+        editor: 'text',
+        formatter({value}) { // 추가
           return `${value}원`;
         }
       }

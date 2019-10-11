@@ -1,7 +1,7 @@
 {
   "name": "hands-on-labs.toastui.grid-account-book",
-  "version": "1.0.0",
-  "description": "NHN Forward 2018",
+  "version": "2.0.0",
+  "description": "NHN Forward 2019",
   "main": "./index.js",
   "scripts": {
     "serve": "webpack-dev-server",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nhnent/hands-on-labs.toastui.grid-account-book.git"
+    "url": "git+https://github.com/nhn/hands-on-labs.toastui.grid-account-book.git"
   },
   "keywords": [
     "NHN",
@@ -23,9 +23,9 @@
   "author": "seonim-ryu",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nhnent/hands-on-labs.toastui.grid-account-book/issues"
+    "url": "https://github.com/nhn/hands-on-labs.toastui.grid-account-book/issues"
   },
-  "homepage": "https://github.com/nhnent/hands-on-labs.toastui.grid-account-book#readme",
+  "homepage": "https://github.com/nhn/hands-on-labs.toastui.grid-account-book#readme",
   "devDependencies": {
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^1.0.0",

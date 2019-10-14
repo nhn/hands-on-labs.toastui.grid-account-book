@@ -29,7 +29,7 @@ API 서버 URL은 ``http://localhost:3000/`` 으로 호출됩니다.
 DataSource 사용하기
 ==============================
 
-``DataSource`` 는 그리드에서 서버와 연동하여 데이터를 처리할 수 있도록 도와주는 듈입니다.
+``DataSource`` 는 그리드에서 서버와 연동하여 데이터를 처리할 수 있도록 도와주는 모듈입니다.
 그리드의 ``data`` 옵션 설정을 통해 해당 모듈을 활성화하며, CRUD 동작을 처리하기 위해 옵션들을 설정할 수 있습니다.
 
 - 참고 : https://github.com/nhn/tui.grid/blob/master/docs/ko/data-source.md

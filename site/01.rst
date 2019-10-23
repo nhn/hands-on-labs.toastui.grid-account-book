@@ -25,7 +25,7 @@ TOAST UI Grid를 사용하면 액셀과 같이 다양한 형태로 데이터를 
 
 .. |link_1| raw:: html 
 
-  <a href="https://github.com/nhn/hands-on-labs.toastui.grid-account-book" target="_blank">github</a>
+  <a href="https://github.com/nhn/hands-on-labs.toastui.grid-account-book" target="_blank">Github</a>
 
 
 

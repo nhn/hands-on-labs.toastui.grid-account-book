@@ -28,7 +28,11 @@ HTML 초기 코드 작성
     * ``el`` : 그리드가 생성되는 컨테이너 엘리먼트 지정
     * ``columns`` : 그리드 컬럼 정보 설정
     * ``data`` : 초기 생성 데이터 설정
-* 더 많은 옵션 보기 : https://nhn.github.io/tui.grid/latest/Grid
+* 더 많은 옵션 보기 : |link|
+
+.. |link| raw:: html 
+
+  <a href="https://nhn.github.io/tui.grid/latest/Grid" target="_blank">링크</a>
 
 .. code-block:: javascript
 
@@ -73,7 +77,11 @@ HTML 초기 코드 작성
 
 2. 인스턴스를 생성하는 코드 아래에 API를 호출하는 코드를 추가해봅니다.
 
-* API 보기 : https://nhn.github.io/tui.grid/latest/Grid#appendRow
+* API 보기 : |API|
+
+.. |API| raw:: html 
+
+  <a href="https://nhn.github.io/tui.grid/latest/Grid#appendRow" target="_blank">링크</a>
 
 .. code-block:: javascript
 

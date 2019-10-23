@@ -153,8 +153,12 @@
 
 텍스트 인풋을 사용하면서 텍스트 인풋이 선택되었을 때 레이어를 띄워 날짜를 선택할 수 있도록 변경해보겠습니다.
 
-그리드에서는 `TOAST UI DatePicker <https://github.com/nhn/tui.date-picker>`_ 컴포넌트를 사용하여 날짜를 선택할 수 있는 기능을 제공합니다.
+그리드에서는 |datepicker| 컴포넌트를 사용하여 날짜를 선택할 수 있는 기능을 제공합니다.
 셀렉트 박스, 체크박스처럼 ``editor`` 옵션을 객체 형태로 설정합니다. 한 가지 다른 점은 ``options`` 에 날짜의 포맷을 지정할 수 있는 ``format`` 속성이 들어가는 점입니다.
+
+.. |datepicker| raw:: html 
+
+  <a href="https://github.com/nhn/tui.date-picker" target="_blank">TOAST UI DatePicker</a>
 
 .. code-block:: javascript
 
@@ -185,9 +189,11 @@
     import 'tui-date-picker/dist/tui-date-picker.css'; // 데이트 피커 스타일 추가
 
 
-이 외 다른 편집 모드를 추가하고 싶다면 아래 링크를 참고하여 추가해봅니다.
+이 외 다른 편집 모드를 추가하고 싶다면 |editor| 을 참고하여 추가해봅니다.
 
-- https://github.com/nhn/tui.grid/blob/master/docs/ko/custom-editor.md
+.. |editor| raw:: html 
+
+  <a href="https://github.com/nhn/tui.grid/blob/master/docs/ko/custom-editor.md" target="_blank">튜토리얼</a>
 
 
 결과 화면

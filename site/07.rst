@@ -3,14 +3,18 @@
 ##############################
 
 지금까지 로컬 데이터를 가져와 그리드를 생성하고 사용해 보았습니다.
-API를 직접 호출하여 서버 연동 과정을 구현할 수도 있지만, 그리드에서 제공하는 모듈을 사용해 좀 더 편리하게 서버 연동을 처리할 수 있습니다.
+API를 직접 호출하여 서버 연동 과정을 구현할 수도 있지만, 그리드에서 제공하는 모듈을 사용해 좀 더 편하게 서버 연동을 처리할 수 있습니다.
 
 테스트용 API 서버 설정하기
 ==============================
 
 지금부터는 외부 API를 호출해 그리드 데이터를 가져오는 작업을 처리해보겠습니다.
 API를 호출할 수 있도록 로컬에서 서버를 실행해봅니다.
-이 API 서버는 `express <http://expressjs.com/>`_ 를 사용합니다.
+이 API 서버는 |express| 를 사용합니다.
+
+.. |express| raw:: html 
+
+  <a href="http://expressjs.com" target="_blank">express</a>
 
 터미널을 새로 열고 개발 서버를 실행했던 것과 같이 프로젝트 폴더 위치에서 다음 명령어를 실행합니다.
 
@@ -32,7 +36,11 @@ DataSource 사용하기
 ``DataSource`` 는 그리드에서 서버와 연동하여 데이터를 처리할 수 있도록 도와주는 모듈입니다.
 그리드의 ``data`` 옵션 설정을 통해 해당 모듈을 활성화하며, CRUD 동작을 처리하기 위해 옵션들을 설정할 수 있습니다.
 
-- 참고 : https://github.com/nhn/tui.grid/blob/master/docs/ko/data-source.md
+- 참고 : |dataSource|
+
+.. |dataSource| raw:: html 
+
+  <a href="https://github.com/nhn/tui.grid/blob/master/docs/ko/data-source.md" target="_blank">DataSource 튜토리얼</a>
 
 먼저, DataSource를 활성화하고 **데이터를 읽어오는 동작(Read)** 을 구현해봅니다.
 

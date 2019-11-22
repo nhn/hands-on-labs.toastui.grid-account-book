@@ -40,7 +40,7 @@ DataSource 사용하기
 
 .. |dataSource| raw:: html 
 
-  <a href="https://github.com/nhn/tui.grid/blob/master/docs/ko/data-source.md" target="_blank">DataSource 튜토리얼</a>
+  <a href="https://github.com/nhn/tui.grid/blob/master/packages/toast-ui.grid/docs/ko/data-source.md" target="_blank">DataSource 튜토리얼</a>
 
 먼저, DataSource를 활성화하고 **데이터를 읽어오는 동작(Read)** 을 구현해봅니다.
 

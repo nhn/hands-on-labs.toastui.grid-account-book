@@ -59,7 +59,7 @@ summary 옵션 설정하기
 
 .. |summary| raw:: html 
 
-  <a href="https://github.com/nhn/tui.grid/blob/master/docs/ko/summary.md" target="_blank">튜토리얼</a>
+  <a href="https://github.com/nhn/tui.grid/blob/master/packages/toast-ui.grid/docs/ko/summary.md" target="_blank">튜토리얼</a>
 
 결과 화면
 ==============================

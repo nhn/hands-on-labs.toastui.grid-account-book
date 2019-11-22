@@ -180,7 +180,7 @@
 
 
 또한 데이트 피커 에디터를 사용하기 위해서는 반드시 스타일을 추가해야 합니다.
-다음과 같이 파일 상단에서 그리드의 스타일을 가져오는 코드 아래에 데이트 피커의 스타일을 추가해줍니다.
+다음과 같이 파일 상단에서 `그리드의 스타일을 가져오는 코드 아래` 에 데이트 피커의 스타일을 추가해줍니다.
 
 .. code-block:: javascript
 
@@ -193,7 +193,7 @@
 
 .. |editor| raw:: html 
 
-  <a href="https://github.com/nhn/tui.grid/blob/master/docs/ko/custom-editor.md" target="_blank">튜토리얼</a>
+  <a href="https://github.com/nhn/tui.grid/blob/master/packages/toast-ui.grid/docs/ko/date-picker.md" target="_blank">튜토리얼</a>
 
 
 결과 화면

@@ -17,6 +17,7 @@ Udate API 추가하기
 .. code-block:: javascript
 
     const dataSource = {
+      contentType: 'application/json',
       api: {
         readData: {
           url: 'http://localhost:3000/api/readData',

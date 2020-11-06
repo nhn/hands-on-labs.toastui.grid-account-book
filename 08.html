@@ -168,6 +168,7 @@
 <p>먼저, 데이터를 수정한 후 호출하는 서버 API 정보를 추가합니다.
 읽기(<code class="docutils literal notranslate"><span class="pre">readData</span></code>) 동작을 처리했던 것과 같이 데이터값이 수정되었을 때 호출되는 API URL을 설정합니다.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">dataSource</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">contentType</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
   <span class="nx">api</span><span class="o">:</span> <span class="p">{</span>
     <span class="nx">readData</span><span class="o">:</span> <span class="p">{</span>
       <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://localhost:3000/api/readData&#39;</span><span class="p">,</span>

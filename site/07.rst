@@ -45,6 +45,7 @@ DataSource 사용하기
 먼저, DataSource를 활성화하고 **데이터를 읽어오는 동작(Read)** 을 구현해봅니다.
 
 * 옵션 정보
+    * ``contentType`` : Content-Type 헤더를 설정합니다.
     * ``api`` : 호출할 API의 URL과 Method를 설정합니다.
 
 .. code-block:: javascript

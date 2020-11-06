@@ -7,7 +7,7 @@ const port = 3000;
 const contents = [
   {
     id: 1,
-    date: '2019-11-27',
+    date: '2020-11-16',
     category1: '1',
     category2: '웨일즈마켓',
     payment: '2',
@@ -15,7 +15,7 @@ const contents = [
   },
   {
     id: 2,
-    date: '2019-11-27',
+    date: '2020-11-16',
     category1: '3',
     category2: '택시',
     payment: '1',
@@ -23,7 +23,7 @@ const contents = [
   },
   {
     id: 3,
-    date: '2019-11-27',
+    date: '2020-11-16',
     category1: '2',
     category2: '영화',
     payment: '3',
@@ -32,6 +32,7 @@ const contents = [
 ];
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');

@@ -137,7 +137,7 @@
 
     const rowData = [
       {
-        date: '2019-11-27',
+        date: '2020-11-16',
         category1: '1', // '식비' -> '1' 변경
         category2: '회사 편의점',
         payment: '3', // '페이코' -> '3' 변경

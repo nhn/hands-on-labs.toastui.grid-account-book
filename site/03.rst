@@ -90,7 +90,7 @@ HTML 초기 코드 작성
 
     const rowData = [
       {
-        name: '+',
+        name: 'X',
         artist: 'Ed Sheeran',
         price: 20000,
         genre: 'Pop'

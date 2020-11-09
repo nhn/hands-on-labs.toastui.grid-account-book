@@ -167,8 +167,7 @@ API를 직접 호출하여 서버 연동 과정을 구현할 수도 있지만, �
 API를 호출할 수 있도록 로컬에서 서버를 실행해봅니다.
 이 API 서버는 <a href="http://expressjs.com" target="_blank">express</a> 를 사용합니다.</p>
 <p>터미널을 새로 열고 개발 서버를 실행했던 것과 같이 프로젝트 폴더 위치에서 다음 명령어를 실행합니다.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> hands-on-labs.toastui.grid-account-book
-npm run api
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>npm run api
 </pre></div>
 </div>
 <p>다음과 같이 메시지가 출력되면 API 서버가 정상적으로 실행되고 호출할 수 있습니다.
@@ -212,7 +211,7 @@ API 서버 URL은 <code class="docutils literal notranslate"><span class="pre">h
 <code class="docutils literal notranslate"><span class="pre">data</span></code> 옵션으로 초기화하던 로컬 데이터만 dataSource로 변경하면 됩니다.
 페이지를 로드하면 <code class="docutils literal notranslate"><span class="pre">api.readData</span></code> 옵션에 설정된 API를 호출합니다.
 정상적으로 요청이 일어난 다음 그리드 내부에서는 로컬 데이터 대신 API의 응답 데이터를 사용하도록 처리됩니다.</p>
-<p>이제 서버측 데이터를 사용하므로, <code class="docutils literal notranslate"><span class="pre">data</span></code> 옵션으로 초기화하던 로컬 데이터에 대한 코드를 변경합니다.</p>
+<p>이제 서버 측 데이터를 사용하므로, <code class="docutils literal notranslate"><span class="pre">data</span></code> 옵션으로 초기화하던 로컬 데이터에 대한 코드를 변경합니다.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">rowData</span> <span class="o">=</span> <span class="p">[</span> <span class="p">...</span> <span class="p">];</span> <span class="c1">// 제거</span>
 
 <span class="kr">const</span> <span class="nx">grid</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Grid</span><span class="p">({</span>

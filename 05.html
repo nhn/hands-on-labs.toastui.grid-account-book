@@ -86,7 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="04.html">4. 가계부 레이아웃 만들기</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">5. 다양한 편집 모드 활성화하기</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#id2">5.1. 텍스트 인풋 옵션 사용하기</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">5.2. 셀렉트 박스, 체크박스 인풋 옵션 사용하기</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">5.2. 셀렉트 박스, 체크 박스 인풋 옵션 사용하기</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id4">5.3. 데이트 피커 에디터 사용하기</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id5">5.4. 결과 화면</a></li>
 </ul>
@@ -166,7 +166,7 @@
 <li>날짜 : 데이트 피커</li>
 <li>내역 : 셀렉트 박스</li>
 <li>비고 : 텍스트 인풋</li>
-<li>결제 방식 : 체크박스</li>
+<li>결제 방식 : 체크 박스</li>
 <li>금액 : 텍스트 인풋</li>
 </ul>
 <p>카테고리별로 편집 모드를 적용해보겠습니다.
@@ -197,17 +197,17 @@
 </div>
 </div>
 <div class="section" id="id3">
-<h2>5.2. 셀렉트 박스, 체크박스 인풋 옵션 사용하기<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
+<h2>5.2. 셀렉트 박스, 체크 박스 인풋 옵션 사용하기<a class="headerlink" href="#id3" title="제목 주소">¶</a></h2>
 <ul class="simple">
 <li>적용 컬럼 : 〈내역〉, 〈결제 방식〉</li>
 </ul>
 <p>데이터가 될 값을 여러 개의 값 중에서 선택하려고 할 때 사용합니다.
 텍스트 인풋과는 다르게 <code class="docutils literal notranslate"><span class="pre">type</span></code> 과 <code class="docutils literal notranslate"><span class="pre">options</span></code> 라는 속성을 가진 객체 형태로 <code class="docutils literal notranslate"><span class="pre">editor</span></code> 의 값을 설정합니다.
-셀렉트 박스의 타입은 <code class="docutils literal notranslate"><span class="pre">'select'</span></code> , 체크박스의 타입은 <code class="docutils literal notranslate"><span class="pre">'checkbox'</span></code> 입니다.
+셀렉트 박스의 타입은 <code class="docutils literal notranslate"><span class="pre">'select'</span></code> , 체크 박스의 타입은 <code class="docutils literal notranslate"><span class="pre">'checkbox'</span></code> 입니다.
 그리고 <code class="docutils literal notranslate"><span class="pre">options</span></code> 속성에 <code class="docutils literal notranslate"><span class="pre">listItems</span></code> 을 설정하여 선택하려는 값 목록을 배열에 담아 초기화합니다.</p>
 <p>여기서 한 가지 중요한 사항이 있습니다.
-일반적으로 셀렉트 박스, 체크박스 같은 경우, <code class="docutils literal notranslate"><span class="pre">text</span></code> 속성을 레이블로 사용하고 <code class="docutils literal notranslate"><span class="pre">value</span></code> 속성을 내부 값으로 사용합니다.
-그리드의 셀 내에서 <code class="docutils literal notranslate"><span class="pre">text</span></code>, <code class="docutils literal notranslate"><span class="pre">value</span></code> 값의 매핑을 위해 반드시 <code class="docutils literal notranslate"><span class="pre">formatter</span></code> 옵션을 <code class="docutils literal notranslate"><span class="pre">'listItemText'</span></code> (내장 포매터)로 설정해야합니다.</p>
+일반적으로 셀렉트 박스, 체크 박스 같은 경우, <code class="docutils literal notranslate"><span class="pre">text</span></code> 속성을 레이블로 사용하고 <code class="docutils literal notranslate"><span class="pre">value</span></code> 속성을 내부 값으로 사용합니다.
+그리드의 셀 내에서 <code class="docutils literal notranslate"><span class="pre">text</span></code>, <code class="docutils literal notranslate"><span class="pre">value</span></code> 값의 매핑을 위해 반드시 <code class="docutils literal notranslate"><span class="pre">formatter</span></code> 옵션을 <code class="docutils literal notranslate"><span class="pre">'listItemText'</span></code> (내장 포매터)로 설정해야 합니다.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
 
 <span class="kr">const</span> <span class="nx">columnData</span> <span class="o">=</span> <span class="p">[</span>
@@ -275,7 +275,7 @@
 </div>
 <p>이때 주의할 사항이 있습니다.
 텍스트 인풋을 제외한 다른 편집 타입의 경우 데이터 형식을 변경해야 합니다.</p>
-<p>예를 들어 체크박스를 사용하는 컬럼의 데이터는 <code class="docutils literal notranslate"><span class="pre">editor.options.listItems</span></code> 에 설정된 각 리스트의 값(<code class="docutils literal notranslate"><span class="pre">value</span></code>) 중 하나와 일치해야 합니다.
+<p>예를 들어 체크 박스를 사용하는 컬럼의 데이터는 <code class="docutils literal notranslate"><span class="pre">editor.options.listItems</span></code> 에 설정된 각 리스트의 값(<code class="docutils literal notranslate"><span class="pre">value</span></code>) 중 하나와 일치해야 합니다.
 다음과 같이 데이터를 변경해봅니다.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
 
@@ -298,7 +298,7 @@
 </ul>
 <p>텍스트 인풋을 사용하면서 텍스트 인풋이 선택되었을 때 레이어를 띄워 날짜를 선택할 수 있도록 변경해보겠습니다.</p>
 <p>그리드에서는 <a href="https://github.com/nhn/tui.date-picker" target="_blank">TOAST UI DatePicker</a> 컴포넌트를 사용하여 날짜를 선택할 수 있는 기능을 제공합니다.
-셀렉트 박스, 체크박스처럼 <code class="docutils literal notranslate"><span class="pre">editor</span></code> 옵션을 객체 형태로 설정합니다. 한 가지 다른 점은 <code class="docutils literal notranslate"><span class="pre">options</span></code> 에 날짜의 포맷을 지정할 수 있는 <code class="docutils literal notranslate"><span class="pre">format</span></code> 속성이 들어가는 점입니다.</p>
+셀렉트 박스, 체크 박스처럼 <code class="docutils literal notranslate"><span class="pre">editor</span></code> 옵션을 객체 형태로 설정합니다. 한 가지 다른 점은 <code class="docutils literal notranslate"><span class="pre">options</span></code> 에 날짜의 포맷을 지정할 수 있는 <code class="docutils literal notranslate"><span class="pre">format</span></code> 속성이 들어가는 점입니다.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">...</span>
 
 <span class="kr">const</span> <span class="nx">columnData</span> <span class="o">=</span> <span class="p">[</span>

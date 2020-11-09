@@ -20,7 +20,6 @@ API를 호출할 수 있도록 로컬에서 서버를 실행해봅니다.
 
 .. code-block:: shell
 
-  cd hands-on-labs.toastui.grid-account-book
   npm run api
 
 
@@ -69,7 +68,7 @@ DataSource 사용하기
 페이지를 로드하면 ``api.readData`` 옵션에 설정된 API를 호출합니다.
 정상적으로 요청이 일어난 다음 그리드 내부에서는 로컬 데이터 대신 API의 응답 데이터를 사용하도록 처리됩니다.
 
-이제 서버측 데이터를 사용하므로, ``data`` 옵션으로 초기화하던 로컬 데이터에 대한 코드를 변경합니다.
+이제 서버 측 데이터를 사용하므로, ``data`` 옵션으로 초기화하던 로컬 데이터에 대한 코드를 변경합니다.
 
 .. code-block:: javascript
 

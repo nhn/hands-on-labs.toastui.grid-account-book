@@ -54,8 +54,8 @@ HTML 초기 코드 작성
         name: 'artist'
       },
       {
-        header: 'Release',
-        name: 'release'
+        header: 'Price',
+        name: 'price'
       },
       {
         header: 'Genre',
@@ -66,7 +66,7 @@ HTML 초기 코드 작성
       {
         name: 'Beautiful Lies',
         artist: 'Birdy',
-        release: '2016.03.26',
+        price: 10000,
         genre: 'Pop'
       }
     ]
@@ -91,14 +91,14 @@ HTML 초기 코드 작성
     const rowData = [
       {
         name: '+',
-        artist: 'Ad Sheeran',
-        release: '2014.06.24',
+        artist: 'Ed Sheeran',
+        price: 20000,
         genre: 'Pop'
       },
       {
         name: 'A Head Full Of Dreams',
         artist: 'Coldplay',
-        release: '2015.12.04',
+        price: 25000,
         genre: 'Rock'
       }
     ];

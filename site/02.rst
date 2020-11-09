@@ -34,13 +34,13 @@ TOAST UI Grid는 |npm| 으로 제공됩니다.
 개발 서버 실행
 ==============================
 
-번들러는 |Webpack| 을 사용하고 |devServer| 를 사용하여 개발 서버를 설정해 두었습니다.
+번들러는 |webpack| 을 사용하고 |devServer| 를 사용하여 개발 서버를 설정해 두었습니다.
 아래와 같이 간단히 개발 서버를 실행하고 브라우저로 |localhost| 에 접속합니다.
 앞으로 실습하는 모든 결과는 이 개발 서버에서 확인합니다.
 
-.. |Webpack| raw:: html 
+.. |webpack| raw:: html 
 
-  <a href="https://webpack.js.org" target="_blank">Webpack</a>
+  <a href="https://webpack.js.org" target="_blank">webpack</a>
 
 .. |devServer| raw:: html 
 
